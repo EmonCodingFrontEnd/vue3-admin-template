@@ -7,11 +7,10 @@ export interface LoginFormData {
 
 // 定义全部接口应答数据的基类
 export interface ResponseData {
-  code: number,
-  message: string,
-  ok: string,
+  code: number
+  message: string
+  ok: string
 }
-
 
 // 登录接口应答数据类型
 export interface LoginResponseData extends ResponseData {
@@ -21,11 +20,11 @@ export interface LoginResponseData extends ResponseData {
 // 获取用户信息返回数据类型
 export interface UserInfoResponseData extends ResponseData {
   data: {
-    routes: string[],
-    buttons: string[],
-    roles: string[],
-    name: string,
-    avatar: string,
+    routes: string[]
+    buttons: string[]
+    roles: string[]
+    name: string
+    avatar: string
   }
 }
 

@@ -8,7 +8,12 @@ import type { UserState } from '@/store/modules/types/type'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
 import { constantRoute } from '@/router/routes'
-import { LoginFormData, LoginResponseData, UserInfoResponseData, LogoutResponseData } from '@/api/user/type'
+import {
+  LoginFormData,
+  LoginResponseData,
+  UserInfoResponseData,
+  LogoutResponseData,
+} from '@/api/user/type'
 
 // 创建用户小仓库
 let useUserStore = defineStore('UserStore', {
