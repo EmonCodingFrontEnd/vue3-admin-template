@@ -1,11 +1,7 @@
 <template>
-  <div>
-    Permission
-  </div>
+  <div>Permission</div>
 </template>
 
-<script setup lang="ts" name="Permission">
-
-</script>
+<script setup lang="ts" name="Permission"></script>
 
 <style scoped></style>

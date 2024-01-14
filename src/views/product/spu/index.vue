@@ -1,11 +1,7 @@
 <template>
-  <div>
-    spu
-  </div>
+  <div>spu</div>
 </template>
 
-<script setup lang="ts" name="Spu">
-
-</script>
+<script setup lang="ts" name="Spu"></script>
 
 <style scoped></style>

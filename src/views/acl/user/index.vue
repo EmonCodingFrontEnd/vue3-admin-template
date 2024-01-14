@@ -1,12 +1,8 @@
 <template>
-  <div class="box">
-    用户管理
-  </div>
+  <div class="box">用户管理</div>
 </template>
 
-<script setup lang="ts" name="User">
-
-</script>
+<script setup lang="ts" name="User"></script>
 
 <style scoped lang="scss">
 .box {

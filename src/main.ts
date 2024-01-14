@@ -1,4 +1,4 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from '@/App.vue'
 // 引入element-plus插件与样式
 import ElementPlus from 'element-plus'
@@ -21,14 +21,14 @@ const app = createApp(App)
 
 // 安装element-plus插件
 app.use(ElementPlus, {
-    locale: zhCn // element-plus国际化配置
+  locale: zhCn, // element-plus国际化配置
 })
 // 安装自定义插件
 app.use(globalComponent)
 // 注册模板路由
 app.use(router)
 // 注册仓库
-app.use(pinia);
+app.use(pinia)
 // 引入路由鉴权文件
 import '@/permission'
 

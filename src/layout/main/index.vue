@@ -16,21 +16,18 @@ import { storeToRefs } from 'pinia'
 // 获取骨架的小仓库
 import useLayoutSettingStore from '@/store/modules/setting'
 
-let layoutSettingStore = useLayoutSettingStore();
-const { refresh } = storeToRefs(layoutSettingStore);
+let layoutSettingStore = useLayoutSettingStore()
+const { refresh } = storeToRefs(layoutSettingStore)
 
 // 控制当前组件是否销毁重建
-let flag = ref(true);
+let flag = ref(true)
 watch(refresh, (ov, nv) => {
   // 点击刷新按钮：路由组件销毁
-  flag.value = false;
+  flag.value = false
   nextTick(() => {
-    flag.value = true;
+    flag.value = true
   })
 })
-
-
-
 </script>
 
 <style scoped lang="scss">
@@ -40,7 +37,7 @@ watch(refresh, (ov, nv) => {
 }
 
 .fade-enter-active {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .fade-enter-to {

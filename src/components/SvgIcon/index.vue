@@ -17,27 +17,27 @@ defineProps({
   // xlink:href属性值的前缀
   prefix: {
     type: String,
-    default: '#icon-'
+    default: '#icon-',
   },
   // 提供使用的图标的名字
   name: {
     type: String,
-    required: true
+    required: true,
   },
   // 接收父组件传递的颜色
   color: {
     type: String,
-    default: ''
+    default: '',
   },
   // 接收父组件传递过来的图标的宽度
   width: {
     type: String,
-    default: '16px'
+    default: '16px',
   },
   // 接收父组件传递过来的图标的高度
   height: {
     type: String,
-    default: '16px'
+    default: '16px',
   },
 })
 </script>

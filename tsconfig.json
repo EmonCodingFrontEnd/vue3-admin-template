@@ -3,11 +3,7 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "Node", // 指定TS在解析模块导入语句时使用的解析策略！Bundler-TS编译器认为是VueCli或Webpack在解析； Node-使用Node.js解析
@@ -23,21 +19,14 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
     /* 其他 */
-    "paths": { // 路径映射，相对于baseUrl
-      "@/*": [
-        "src/*"
-      ]
+    "paths": {
+      // 路径映射，相对于baseUrl
+      "@/*": ["src/*"]
     },
     // 如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
-    "types": [
-      "element-plus/global"
-    ]
+    "types": ["element-plus/global"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [
     {
       "path": "./tsconfig.node.json"

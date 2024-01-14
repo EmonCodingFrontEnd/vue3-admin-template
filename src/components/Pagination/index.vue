@@ -1,11 +1,7 @@
 <template>
-  <div>
-
-  </div>
+  <div></div>
 </template>
 
-<script setup lang="ts" name="Pagination">
-
-</script>
+<script setup lang="ts" name="Pagination"></script>
 
 <style scoped></style>

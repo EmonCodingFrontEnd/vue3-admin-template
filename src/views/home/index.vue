@@ -7,7 +7,7 @@
 <script setup lang="ts" name="Home">
 // 引入组合式API函数之生命周期函数
 import { ref } from 'vue'
-let home = ref();
+let home = ref()
 </script>
 
 <style scoped></style>

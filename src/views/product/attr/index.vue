@@ -1,11 +1,7 @@
 <template>
-  <div>
-    attr
-  </div>
+  <div>attr</div>
 </template>
 
-<script setup lang="ts" name="Attr">
-
-</script>
+<script setup lang="ts" name="Attr"></script>
 
 <style scoped></style>

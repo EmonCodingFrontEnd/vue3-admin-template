@@ -1,11 +1,7 @@
 <template>
-  <div>
-    sku
-  </div>
+  <div>sku</div>
 </template>
 
-<script setup lang="ts" name="Sku">
-
-</script>
+<script setup lang="ts" name="Sku"></script>
 
 <style scoped></style>

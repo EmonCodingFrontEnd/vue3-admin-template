@@ -6,7 +6,5 @@
     "moduleResolution": "Node", // 指定TS在解析模块导入语句时使用的解析策略！Bundler-TS编译器认为是VueCli或Webpack在解析； Node-使用Node.js解析
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "vite.config.ts"
-  ]
+  "include": ["vite.config.ts"]
 }

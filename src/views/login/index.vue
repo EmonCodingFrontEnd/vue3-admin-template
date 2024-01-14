@@ -3,50 +3,70 @@
     <el-row :gutter="20">
       <el-col :span="12" :offset="0" :xs="0"></el-col>
       <el-col :span="12" :offset="0" :xs="24">
-        <el-form class="login_form" :model="loginForm" :rules="loginRules" ref="loginFormRef">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="loginRules"
+          ref="loginFormRef"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <el-form-item prop="username">
             <!-- 这里要注意：若是绑定图标(:prefix-icon="User")，需要在setup中引入；若是使用全局图标(prefix-icon="User")，不需要setup引入。 -->
-            <el-input prefix-icon="User" v-model="loginForm.username"></el-input>
+            <el-input
+              prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" size="default" class="login_btn" @click="login" :loading="loading">登录</el-button>
+            <el-button
+              type="primary"
+              size="default"
+              class="login_btn"
+              @click="login"
+              :loading="loading"
+            >
+              登录
+            </el-button>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script setup lang="ts" name="Login">
-import {ref, reactive} from "vue";
-import {useRouter, useRoute} from "vue-router";
-import {ElNotification, FormInstance, FormRules} from "element-plus";
-import {Lock} from "@element-plus/icons-vue";
+import { ref, reactive } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ElNotification, FormInstance, FormRules } from 'element-plus'
+import { Lock } from '@element-plus/icons-vue'
 
 // 引入获取当前时间的函数
-import {getTime} from "@/utils/time";
-import type {LoginForm} from '@/api/user/type'
-import useUserStore from "@/store/modules/user";
+import { getTime } from '@/utils/time'
+import type { LoginForm } from '@/api/user/type'
+import useUserStore from '@/store/modules/user'
 
 // 引入用户相关的小仓库
-let userStore = useUserStore();
+let userStore = useUserStore()
 // 获取路由器
-let router = useRouter();
+let router = useRouter()
 // 获取路由
-let route = useRoute();
+let route = useRoute()
 // 控制按钮加载
-let loading = ref(false);
+let loading = ref(false)
 
 // 收集账号与密码的数据
 let loginForm = reactive<LoginForm>({
   username: 'admin',
-  password: '111111'
+  password: '111111',
 })
 /**
  * 自定义校验规则函数
@@ -56,14 +76,14 @@ let loginForm = reactive<LoginForm>({
  */
 const validatorUsername = (rule: any, value: any, callback: any) => {
   if (/^\w{5,10}$/.test(value)) {
-    callback();
+    callback()
   } else {
     callback(new Error('账号长度5-10位！'))
   }
 }
 const validatorPassword = (rule: any, value: any, callback: any) => {
   if (/^\w{6,15}$/.test(value)) {
-    callback();
+    callback()
   } else {
     callback(new Error('密码长度6-15位！'))
   }
@@ -79,43 +99,43 @@ let loginRules = reactive<FormRules<LoginForm>>({
    */
   username: [
     // { required: true, min: 5, max: 10, message: '账号长度5-10位', trigger: 'change' },
-    {trigger: 'change', validator: validatorUsername},
+    { trigger: 'change', validator: validatorUsername },
   ],
   password: [
     // { required: true, min: 6, max: 15, message: '密码长度6-15位', trigger: 'change' },
-    {trigger: 'change', validator: validatorPassword},
-  ]
+    { trigger: 'change', validator: validatorPassword },
+  ],
 })
 // 获取el-form组件
-let loginFormRef = ref<FormInstance>();
+let loginFormRef = ref<FormInstance>()
 
 // 登录按钮回调
 const login = async () => {
   // userStore.userLogin(loginForm).then(() => { }).catch(() => { }) // 可以采用promise方式
   try {
-    loading.value = true;
+    loading.value = true
     // 保证全部表单项校验通过再发请求
     await loginFormRef.value?.validate((valid, fields) => {
       if (!valid) {
-        throw new Error("用户名或密码格式不合法！")
+        throw new Error('用户名或密码格式不合法！')
       }
-    });
-    await userStore.userLogin(loginForm);
-    // 判断登录的时候，路由路径query参数当中是否有redirect参数，如果有就填入本次query中；没有就跳转到首页
-    let redirect: string = <string>route.query.redirect;
-    // 编程式导航跳转到展示数据的首页
-    router.push({path: redirect || '/'})
-    ElNotification({
-      type: "success",
-      title: `HHI，${getTime()}好`,
-      message: "欢迎回来！"
     })
-    loading.value = false;
-  } catch (error) {
-    loading.value = false;
+    await userStore.userLogin(loginForm)
+    // 判断登录的时候，路由路径query参数当中是否有redirect参数，如果有就填入本次query中；没有就跳转到首页
+    let redirect: string = <string>route.query.redirect
+    // 编程式导航跳转到展示数据的首页
+    router.push({ path: redirect || '/' })
     ElNotification({
-      type: "error",
-      message: (error as Error).message
+      type: 'success',
+      title: `HHI，${getTime()}好`,
+      message: '欢迎回来！',
+    })
+    loading.value = false
+  } catch (error) {
+    loading.value = false
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
     })
   }
 }

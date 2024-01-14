@@ -6,8 +6,15 @@
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu background-color="#001529" text-color="white" :router="false" :collapse="fold"
-                 :collapse-transition="true" :default-active="currentPath" active-text-color="yellowgreen">
+        <el-menu
+          background-color="#001529"
+          text-color="white"
+          :router="false"
+          :collapse="fold"
+          :collapse-transition="true"
+          :default-active="currentPath"
+          active-text-color="yellowgreen"
+        >
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="menuRoutes"></Menu>
         </el-menu>
@@ -26,8 +33,8 @@
 
 <script setup lang="ts" name="Layout">
 // 引入路由
-import {useRoute} from 'vue-router';
-import {storeToRefs} from "pinia";
+import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 // 引入左侧菜单logo子组件
 import Logo from '@/layout/logo/index.vue'
 // 引入顶部组件
@@ -39,17 +46,17 @@ import Main from '@/layout/main/index.vue'
 // 获取用户相关的小仓库
 import useUserStore from '@/store/modules/user'
 // 获取layout配置相关的仓库
-import useLayoutSettingStore from "@/store/modules/setting";
+import useLayoutSettingStore from '@/store/modules/setting'
 
-let userStore = useUserStore();
-const {menuRoutes} = storeToRefs(userStore)
+let userStore = useUserStore()
+const { menuRoutes } = storeToRefs(userStore)
 
 // 获取路由对象
-let route = useRoute();
-let currentPath = route.path;
+let route = useRoute()
+let currentPath = route.path
 
-let layoutSettingStore = useLayoutSettingStore();
-const {fold} = storeToRefs(layoutSettingStore);
+let layoutSettingStore = useLayoutSettingStore()
+const { fold } = storeToRefs(layoutSettingStore)
 </script>
 
 <style scoped lang="scss">

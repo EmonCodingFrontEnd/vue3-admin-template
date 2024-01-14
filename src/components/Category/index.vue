@@ -1,11 +1,7 @@
 <template>
-  <div>
-
-  </div>
+  <div></div>
 </template>
 
-<script setup lang="ts" name="Category">
-
-</script>
+<script setup lang="ts" name="Category"></script>
 
 <style scoped></style>
