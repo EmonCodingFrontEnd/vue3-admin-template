@@ -18,7 +18,7 @@ import * as nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 去掉加载进度条（右侧加载圆圈）
-nprogress.configure({showSpinner: false})
+nprogress.configure({ showSpinner: false })
 
 let userStore = useUserStore(pinia)
 
@@ -38,7 +38,7 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     // 登录成功，访问login，不能访问，指向首页
     if (to.path == '/login') {
-      next({path: from.path})
+      next({ path: from.path })
     }
     // 登录成功后，访问其余路由（登录排除）
     else {
@@ -56,7 +56,7 @@ router.beforeEach(async (to, from, next) => {
           if (result) {
             try {
               await userStore.userLogout()
-              next({path: '/login', query: {redirect: to.path}})
+              next({ path: '/login', query: { redirect: to.path } })
             } catch (error) {
               console.error('退出登录失败:', (error as Error).message)
             }
@@ -68,7 +68,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.path == '/login') {
       next()
     } else {
-      next({path: '/login', query: {redirect: to.path}})
+      next({ path: '/login', query: { redirect: to.path } })
     }
   }
 })
