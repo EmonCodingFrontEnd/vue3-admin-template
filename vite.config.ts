@@ -41,6 +41,25 @@ export default defineConfig(({ command, mode }) => {
     // 代理服务器
     server: {
       proxy: {
+        // 登录相关接口
+        [env.VITE_APP_BASE_API_8212]: {
+          // 获取数据的服务器的地址设置
+          target: env.VITE_SERVE_8212,
+          // 需要代理跨域
+          changeOrigin: true,
+          // 路径重写
+          rewrite: (path) => path.replace(/^\/api_8212/, ''),
+        },
+        // 其他业务接口
+        [env.VITE_APP_BASE_API_8209]: {
+          // 获取数据的服务器的地址设置
+          target: env.VITE_SERVE_8209,
+          // 需要代理跨域
+          changeOrigin: true,
+          // 路径重写
+          rewrite: (path) => path.replace(/^\/api_8209/, ''),
+        },
+        // 默认配置
         [env.VITE_APP_BASE_API]: {
           // 获取数据的服务器的地址设置
           target: env.VITE_SERVE,

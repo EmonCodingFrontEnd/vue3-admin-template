@@ -1,41 +1,41 @@
 <template>
   <el-button
-    size="small"
-    icon="Refresh"
+    size='small'
+    icon='Refresh'
     circle
-    type="success"
-    @click="updateRefresh"
+    type='success'
+    @click='updateRefresh'
   ></el-button>
   <el-button
-    size="small"
-    icon="FullScreen"
+    size='small'
+    icon='FullScreen'
     circle
-    type="warning"
-    @click="fullScreen"
+    type='warning'
+    @click='fullScreen'
   ></el-button>
-  <el-button size="small" icon="Setting" circle type="primary"></el-button>
+  <el-button size='small' icon='Setting' circle type='primary'></el-button>
   <img
-    :src="userStore.avatar"
-    style="width: 24px; height: 24px; margin: 0px 10px; border-radius: 50%"
+    :src='userStore.avatar'
+    style='width: 24px; height: 24px; margin: 0px 10px; border-radius: 50%'
   />
 
   <!-- 下拉菜单 -->
   <el-dropdown>
-    <span class="el-dropdown-link">
+    <span class='el-dropdown-link'>
       {{ userStore.username }}
-      <el-icon class="el-icon--right">
+      <el-icon class='el-icon--right'>
         <arrow-down />
       </el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+        <el-dropdown-item @click='logout'>退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
 
-<script setup lang="ts" name="Setting">
+<script setup lang='ts' name='Setting'>
 import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 // 获取用户相关的小仓库
@@ -68,13 +68,13 @@ const fullScreen = () => {
 }
 
 // 退出登录点击回调
-const logout = () => {
+const logout = async () => {
   // 第一件事：需要向服务器发送请求[退出登录接口]
   // 第二件事情：仓库当中关于用户相关的数据清空[token|username|avatar]
-  userStore.userLogout()
+  await userStore.userLogout()
   // 第三件事情：跳转到登录页面
   router.push({ path: '/login', query: { redirect: route.path } })
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang='scss'></style>

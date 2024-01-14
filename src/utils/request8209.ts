@@ -6,14 +6,14 @@ import useUserStore from '@/store/modules/user'
 
 // 第一步：利用axios对象的craete方法，去创建axios实例（其他的配置：基础路径、超时的时间等待）
 // 创建axios实例
-let request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API, // 配置基础路径，基础路径上会携带 /api
+let request8209 = axios.create({
+  baseURL: import.meta.env.VITE_APP_BASE_API_8209, // 配置基础路径，基础路径上会携带 /api
   timeout: 5000, // 超时的时间的设置
 })
 
 // 第二步：request实例添加请求与响应拦截器
 // 请求拦截器
-request.interceptors.request.use((config) => {
+request8209.interceptors.request.use((config) => {
   // 获取用户相关的小仓库：获取仓库内部token，登录成功以后携带给服务器
   let userStore = useUserStore()
   if (userStore.token) {
@@ -24,7 +24,7 @@ request.interceptors.request.use((config) => {
   return config
 })
 // 响应拦截器
-request.interceptors.response.use(
+request8209.interceptors.response.use(
   (response) => {
     return response.data
   },
@@ -55,4 +55,4 @@ request.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-export default request
+export default request8209

@@ -51,7 +51,7 @@ import { Lock } from '@element-plus/icons-vue'
 
 // 引入获取当前时间的函数
 import { getTime } from '@/utils/time'
-import type { LoginForm } from '@/api/user/type'
+import type { LoginFormData } from '@/api/user/type'
 import useUserStore from '@/store/modules/user'
 
 // 引入用户相关的小仓库
@@ -64,9 +64,10 @@ let route = useRoute()
 let loading = ref(false)
 
 // 收集账号与密码的数据
-let loginForm = reactive<LoginForm>({
+let loginForm = reactive<LoginFormData>({
   username: 'admin',
-  password: '111111',
+  // password: '111111', // 本地mock用户密码
+  password: 'atguigu123',
 })
 /**
  * 自定义校验规则函数
@@ -89,7 +90,7 @@ const validatorPassword = (rule: any, value: any, callback: any) => {
   }
 }
 // 定义表单校验需要的配置对象
-let loginRules = reactive<FormRules<LoginForm>>({
+let loginRules = reactive<FormRules<LoginFormData>>({
   /**
    * required 必输项
    * min 文本长度至少多少位
