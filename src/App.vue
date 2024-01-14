@@ -1,18 +1,11 @@
 <template>
-  <div></div>
+  <div>
+    <RouterView></RouterView>
+  </div>
 </template>
 
-<script setup lang="ts">
-for (let i = 0; i < 100; i++) {
-  console.log(i)
-}
+<script setup lang="ts" name="App">
+// import { onMounted } from "vue";
 </script>
 
-<style scoped>
-.box {
-  width: 100px;
-  height: 200px;
-
-
-}
-</style>
+<style scoped></style>
