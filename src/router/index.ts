@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { constantRoute } from '@/router/routes'
 
 // 创建路由器
-let router = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoute,
   scrollBehavior() {

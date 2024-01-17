@@ -20,7 +20,7 @@ import 'nprogress/nprogress.css'
 // 去掉加载进度条（右侧加载圆圈）
 nprogress.configure({ showSpinner: false })
 
-let userStore = useUserStore(pinia)
+const userStore = useUserStore(pinia)
 
 // 全局前置守卫
 /**
@@ -31,9 +31,9 @@ let userStore = useUserStore(pinia)
 router.beforeEach(async (to, from, next) => {
   nprogress.start()
   // 获取token，去判断用户登录、还是未登录
-  let token = userStore.token
+  const token = userStore.token
   // 获取用户名字
-  let username = userStore.username
+  const username = userStore.username
   // 用户登录判断
   if (token) {
     // 登录成功，访问login，不能访问，指向首页
@@ -74,7 +74,7 @@ router.beforeEach(async (to, from, next) => {
 })
 
 // 全局后置守卫
-router.afterEach((to, from, failure) => {
+router.afterEach((to, _from, _failure) => {
   document.title = `${setting.title}-${to.meta.title}`
   nprogress.done()
 })

@@ -14,7 +14,7 @@
     "jsx": "preserve",
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": false, // 避免出现 已声明“xxx”，但从未读取其值
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录

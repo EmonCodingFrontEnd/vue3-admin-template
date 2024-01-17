@@ -4,7 +4,6 @@ import Pagination from '@/components/Pagination/index.vue'
 import Category from '@/components/Category/index.vue'
 //引入element-plus提供全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import { all } from 'axios'
 
 // 全局组件对象
 const allGlobalComponent: any = { SvgIcon, Pagination, Category }

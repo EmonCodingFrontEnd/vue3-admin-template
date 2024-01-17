@@ -16,7 +16,7 @@ import {
 } from '@/api/user/type'
 
 // 创建用户小仓库
-let useUserStore = defineStore('UserStore', {
+const useUserStore = defineStore('UserStore', {
   // 小仓库存储数据地方
   state: (): UserState => {
     return {
@@ -30,7 +30,7 @@ let useUserStore = defineStore('UserStore', {
   actions: {
     // 用户登录的方法
     async userLogin(data: LoginFormData) {
-      let result: LoginResponseData = await reqLogin(data)
+      const result: LoginResponseData = await reqLogin(data)
       if (200 === result.code) {
         // 由于pinia|vuex存储数据其实利用js对象
         this.token = result.data as string
@@ -45,7 +45,7 @@ let useUserStore = defineStore('UserStore', {
     // 获取用户信息的方法
     async userInfo() {
       // 获取用户信息进行存储仓库[用户头像、名字】
-      let result: UserInfoResponseData = await reqUserInfo()
+      const result: UserInfoResponseData = await reqUserInfo()
       if (200 === result.code) {
         this.username = result.data.name
         this.avatar = result.data.avatar
@@ -57,7 +57,7 @@ let useUserStore = defineStore('UserStore', {
     },
     // 退出登录
     async userLogout() {
-      let result: LogoutResponseData = await reqLogout()
+      const result: LogoutResponseData = await reqLogout()
       if (200 === result.code) {
         this.token = ''
         this.username = ''

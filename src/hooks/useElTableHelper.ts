@@ -1,7 +1,7 @@
 import * as debounce from 'lodash/debounce'
 import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
 
-export default function (reqData: Function) {
+export default function (reqData: () => void) {
   const tableRef = ref()
   const tableHeight = ref<number>()
 

@@ -4,7 +4,7 @@ import App from '@/App.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 配置element-plus国际化
-// @ts-ignore 忽略下一行国际化配置代码的ts类型检查，避免打包失败！
+// @ts-expect-error 忽略下一行国际化配置代码的ts类型检查，避免打包失败！
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 // svg插件需要配置代码
 import 'virtual:svg-icons-register'
