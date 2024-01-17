@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card class='box-card'>
       <!-- 卡片顶部添加品牌按钮 -->
       <el-button
-        type="primary"
-        size="default"
-        icon="Plus"
-        @click="addTrademark"
+        type='primary'
+        size='default'
+        icon='Plus'
+        @click='addTrademark'
       >
         添加品牌
       </el-button>
@@ -20,41 +20,41 @@
           align=>列对齐方式
       -->
       <el-table
-        ref="tableRef"
-        class="tableClass"
-        :data="trademarkArr"
-        :height="tableHeight"
-        :max-height="tableHeight"
+        ref='tableRef'
+        class='tableClass'
+        :data='trademarkArr'
+        :height='tableHeight'
+        :max-height='tableHeight'
         border
         stripe
       >
         <el-table-column
-          label="序号"
-          type="index"
-          :index="(pageNo - 1) * pageSize + 1"
-          width="80px"
-          align="center"
+          label='序号'
+          type='index'
+          :index='(pageNo - 1) * pageSize + 1'
+          width='80px'
+          align='center'
           fixed
         ></el-table-column>
-        <el-table-column label="品牌名称" prop="tmName"></el-table-column>
-        <el-table-column label="品牌logo" prop="tmName">
-          <template v-slot="{ row, $index }">
+        <el-table-column label='品牌名称' prop='tmName'></el-table-column>
+        <el-table-column label='品牌logo' prop='tmName'>
+          <template v-slot='{ row, $index }'>
             <img
-              :src="row.logoUrl"
-              style="width: 50px; height: 50px"
-              alt="图片找不到了"
+              :src='row.logoUrl'
+              style='width: 50px; height: 50px'
+              alt='图片找不到了'
             />
           </template>
         </el-table-column>
-        <el-table-column label="品牌操作" fixed="right" width="120px">
-          <template v-slot="{ row, $index }">
+        <el-table-column label='品牌操作' fixed='right' width='120px'>
+          <template v-slot='{ row, $index }'>
             <el-button
-              type="warning"
-              size="small"
-              icon="Edit"
-              @click="updateTrademark(row)"
+              type='warning'
+              size='small'
+              icon='Edit'
+              @click='updateTrademark(row)'
             ></el-button>
-            <el-button type="danger" size="small" icon="Delete"></el-button>
+            <el-button type='danger' size='small' icon='Delete'></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,51 +69,51 @@
         layout=>组件布局，子组件名用逗号分隔
       -->
       <el-pagination
-        v-model:current-page="pageNo"
-        v-model:page-size="pageSize"
-        :page-sizes="[3, 5, 10, 20]"
-        :background="true"
-        layout="prev, pager, next, jumper, ->, total, sizes"
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        v-model:current-page='pageNo'
+        v-model:page-size='pageSize'
+        :page-sizes='[3, 5, 10, 20]'
+        :background='true'
+        layout='prev, pager, next, jumper, ->, total, sizes'
+        :total='total'
+        @size-change='handleSizeChange'
+        @current-change='handleCurrentChange'
       />
     </el-card>
     <!--对话框组件：在添加品牌与修改已有品牌的业务时使用-->
     <!--
       v-model:属性用于控制对话框的显示与隐藏 true-显示；false-隐藏
     -->
-    <el-dialog v-model="dialogVisible" :title="operType">
+    <el-dialog v-model='dialogVisible' :title='operType'>
       <el-form
-        ref="trademarkFormRef"
-        :model="trademarkForm"
-        :rules="trademarkRules"
-        style="width: 80%"
-        label-width="120px"
+        ref='trademarkFormRef'
+        :model='trademarkForm'
+        :rules='trademarkRules'
+        style='width: 80%'
+        label-width='120px'
       >
         <!--注意：这里id不需要回显，但为了能被resetFields()方法正确重置，必须要写上，且prop属性是对应字段名-->
-        <el-form-item prop="id" v-show="false"></el-form-item>
-        <el-form-item label="品牌名称：" prop="tmName">
+        <el-form-item prop='id' v-show='false'></el-form-item>
+        <el-form-item label='品牌名称：' prop='tmName'>
           <el-input
-            placeholder="请您输入品牌名称"
-            v-model="trademarkForm.tmName"
+            placeholder='请您输入品牌名称'
+            v-model='trademarkForm.tmName'
           ></el-input>
         </el-form-item>
-        <el-form-item label="品牌LOGO：" prop="logoUrl">
+        <el-form-item label='品牌LOGO：' prop='logoUrl'>
           <el-upload
-            ref="avatarUploader"
-            class="avatar-uploader"
-            :action="PICTURE_UPLOAD_URL"
-            :show-file-list="true"
-            :before-upload="beforeAvatarUpload"
-            :on-success="handleAvatarSuccess"
+            ref='avatarUploader'
+            class='avatar-uploader'
+            :action='PICTURE_UPLOAD_URL'
+            :show-file-list='true'
+            :before-upload='beforeAvatarUpload'
+            :on-success='handleAvatarSuccess'
           >
             <img
-              v-if="trademarkForm.logoUrl"
-              :src="trademarkForm.logoUrl"
-              class="avatar"
+              v-if='trademarkForm.logoUrl'
+              :src='trademarkForm.logoUrl'
+              class='avatar'
             />
-            <el-icon v-else class="avatar-uploader-icon">
+            <el-icon v-else class='avatar-uploader-icon'>
               <Plus />
             </el-icon>
           </el-upload>
@@ -121,14 +121,14 @@
       </el-form>
       <!--具名插槽：footer-->
       <template v-slot:footer>
-        <el-button type="primary" size="default" @click="cancel">
+        <el-button type='primary' size='default' @click='cancel'>
           取消
         </el-button>
         <el-button
-          type="primary"
-          size="default"
-          @click="confirm"
-          :loading="loading"
+          type='primary'
+          size='default'
+          @click='confirm'
+          :loading='loading'
         >
           确定
         </el-button>
@@ -137,7 +137,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="Trademark">
+<script setup lang='ts' name='Trademark'>
 // 引入组合式API函数
 import { nextTick, reactive, ref } from 'vue'
 import type {
@@ -302,7 +302,7 @@ const confirm = async () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .tableClass {
   margin: 10px 0;
 }
@@ -315,7 +315,7 @@ const confirm = async () => {
 }
 </style>
 
-<style lang="scss">
+<style lang='scss'>
 // 后代选择器，定义头像框的边框线条+圆角边框+鼠标悬浮指针风格
 .avatar-uploader .el-upload {
   border: 1px dashed var(--el-border-color);
