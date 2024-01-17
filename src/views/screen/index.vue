@@ -4,4 +4,4 @@
 
 <script setup lang="ts" name="Screen"></script>
 
-<style scoped lang='scss'></style>
+<style scoped lang="scss"></style>

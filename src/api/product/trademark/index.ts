@@ -1,6 +1,10 @@
 // 书写品牌管理模块接口
 import request8209 from '@/utils/request8209'
-import type { Trademark, TrademarkResponseData, ResponseData } from '@/api/product/trademark/type'
+import type {
+  Trademark,
+  TrademarkResponseData,
+  ResponseData,
+} from '@/api/product/trademark/type'
 
 // 品牌管理模块接口地址
 enum API {
@@ -11,7 +15,8 @@ enum API {
   // 修改已有品牌
   UPDATE_TRADEMARK_URL = '/admin/product/baseTrademark/update',
   // 图片上传地址
-  PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 + '/admin/product/fileUpload'
+  PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 +
+    '/admin/product/fileUpload',
 }
 
 export const PICTURE_UPLOAD_URL: string = API.PICTURE_UPLOAD_URL.toString()
@@ -22,7 +27,9 @@ export const PICTURE_UPLOAD_URL: string = API.PICTURE_UPLOAD_URL.toString()
  * limit:获取几个已有品牌的数据
  */
 export const reqTrademark = (page: number, limit: number) =>
-  request8209.get<any, TrademarkResponseData>(API.TRADEMARK_URL + `${page}/${limit}`)
+  request8209.get<any, TrademarkResponseData>(
+    API.TRADEMARK_URL + `${page}/${limit}`,
+  )
 
 // 添加品牌或修改已有品牌
 export const reqAddOrUpdateTrademark = (data: Trademark) => {

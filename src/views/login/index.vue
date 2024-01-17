@@ -1,20 +1,41 @@
 <template>
-  <div class='login_container'>
-    <el-row :gutter='20'>
-      <el-col :span='12' :offset='0' :xs='0'></el-col>
-      <el-col :span='12' :offset='0' :xs='24'>
-        <el-form ref='loginFormRef' class='login_form' :model='loginForm' :rules='loginRules'>
+  <div class="login_container">
+    <el-row :gutter="20">
+      <el-col :span="12" :offset="0" :xs="0"></el-col>
+      <el-col :span="12" :offset="0" :xs="24">
+        <el-form
+          ref="loginFormRef"
+          class="login_form"
+          :model="loginForm"
+          :rules="loginRules"
+        >
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item prop='username'>
+          <el-form-item prop="username">
             <!-- 这里要注意：若是绑定图标(:prefix-icon="User")，需要在setup中引入；若是使用全局图标(prefix-icon="User")，不需要setup引入。 -->
-            <el-input prefix-icon='User' v-model='loginForm.username'></el-input>
+            <el-input
+              prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
-          <el-form-item prop='password'>
-            <el-input type='password' :prefix-icon='Lock' v-model='loginForm.password' show-password></el-input>
+          <el-form-item prop="password">
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type='primary' size='default' class='login_btn' @click='login' :loading='loading'>登录</el-button>
+            <el-button
+              type="primary"
+              size="default"
+              class="login_btn"
+              @click="login"
+              :loading="loading"
+            >
+              登录
+            </el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -22,7 +43,7 @@
   </div>
 </template>
 
-<script setup lang='ts' name='Login'>
+<script setup lang="ts" name="Login">
 import { ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
@@ -48,7 +69,7 @@ let loading = ref(false)
 let loginFormRef = ref<FormInstance>()
 // 收集账号与密码的数据
 let loginForm = reactive<LoginFormData>({
-  username: 'admin',/* password: '111111', // 本地mock用户密码*/
+  username: 'admin' /* password: '111111', // 本地mock用户密码*/,
   password: 'atguigu123',
 })
 /**
@@ -121,7 +142,7 @@ const login = async () => {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .login_container {
   width: 100%;
   height: 100vh;

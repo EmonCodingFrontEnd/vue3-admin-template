@@ -4,4 +4,4 @@
 
 <script setup lang="ts" name="Role"></script>
 
-<style scoped lang='scss'></style>
+<style scoped lang="scss"></style>

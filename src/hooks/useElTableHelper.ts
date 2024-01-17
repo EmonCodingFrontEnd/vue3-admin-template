@@ -1,7 +1,7 @@
 import * as debounce from 'lodash/debounce'
 import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
 
-export default function(reqData: Function) {
+export default function (reqData: Function) {
   const tableRef = ref()
   const tableHeight = ref<number>()
 
@@ -31,13 +31,14 @@ export default function(reqData: Function) {
     if (!$table) return
 
     // 计算列表高度并设置
-    const height = window.innerHeight - $table.$el.getBoundingClientRect().top - bottomOffset
+    const height =
+      window.innerHeight - $table.$el.getBoundingClientRect().top - bottomOffset
     nextTick(() => {
       tableHeight.value = height
       $table.doLayout()
-    }).then(() => {
-    }).catch(() => {
     })
+      .then(() => {})
+      .catch(() => {})
   }
 
   // 根据屏幕自动计算表格高度
@@ -49,5 +50,13 @@ export default function(reqData: Function) {
   })
   onBeforeUnmount(() => window.removeEventListener('resize', handleFn))
 
-  return { tableRef, tableHeight, pageNo, pageSize, total, handleSizeChange, handleCurrentChange }
+  return {
+    tableRef,
+    tableHeight,
+    pageNo,
+    pageSize,
+    total,
+    handleSizeChange,
+    handleCurrentChange,
+  }
 }

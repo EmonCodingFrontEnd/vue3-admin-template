@@ -6,4 +6,4 @@
 
 <script setup lang="ts" name="404"></script>
 
-<style scoped lang='scss'></style>
+<style scoped lang="scss"></style>

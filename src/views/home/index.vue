@@ -10,4 +10,4 @@ import { ref } from 'vue'
 let home = ref()
 </script>
 
-<style scoped lang='scss'></style>
+<style scoped lang="scss"></style>
