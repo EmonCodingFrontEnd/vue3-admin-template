@@ -39,7 +39,7 @@ let useUserStore = defineStore('UserStore', {
         // 能保证当前async函数返回一个成功的promise
         return 'ok'
       } else {
-        return Promise.reject(new Error(result.data as string))
+        return Promise.reject(new Error(result.message as string))
       }
     },
     // 获取用户信息的方法

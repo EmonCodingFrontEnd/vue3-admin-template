@@ -4,4 +4,4 @@
 
 <script setup lang="ts" name="Attr"></script>
 
-<style scoped></style>
+<style scoped lang='scss'></style>

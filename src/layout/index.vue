@@ -99,7 +99,6 @@ const { fold } = storeToRefs(layoutSettingStore)
     position: fixed;
     width: calc(100% - $base-menu-width);
     height: calc(100% - $base-tabbar-height);
-    background-color: yellowgreen;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px;

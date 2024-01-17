@@ -1,41 +1,20 @@
 <template>
-  <div class="login_container">
-    <el-row :gutter="20">
-      <el-col :span="12" :offset="0" :xs="0"></el-col>
-      <el-col :span="12" :offset="0" :xs="24">
-        <el-form
-          class="login_form"
-          :model="loginForm"
-          :rules="loginRules"
-          ref="loginFormRef"
-        >
+  <div class='login_container'>
+    <el-row :gutter='20'>
+      <el-col :span='12' :offset='0' :xs='0'></el-col>
+      <el-col :span='12' :offset='0' :xs='24'>
+        <el-form ref='loginFormRef' class='login_form' :model='loginForm' :rules='loginRules'>
           <h1>Hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
-          <el-form-item prop="username">
+          <el-form-item prop='username'>
             <!-- 这里要注意：若是绑定图标(:prefix-icon="User")，需要在setup中引入；若是使用全局图标(prefix-icon="User")，不需要setup引入。 -->
-            <el-input
-              prefix-icon="User"
-              v-model="loginForm.username"
-            ></el-input>
+            <el-input prefix-icon='User' v-model='loginForm.username'></el-input>
           </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              type="password"
-              :prefix-icon="Lock"
-              v-model="loginForm.password"
-              show-password
-            ></el-input>
+          <el-form-item prop='password'>
+            <el-input type='password' :prefix-icon='Lock' v-model='loginForm.password' show-password></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              size="default"
-              class="login_btn"
-              @click="login"
-              :loading="loading"
-            >
-              登录
-            </el-button>
+            <el-button type='primary' size='default' class='login_btn' @click='login' :loading='loading'>登录</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -43,16 +22,18 @@
   </div>
 </template>
 
-<script setup lang="ts" name="Login">
+<script setup lang='ts' name='Login'>
 import { ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ElNotification, FormInstance, FormRules } from 'element-plus'
+import { ElNotification } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { Lock } from '@element-plus/icons-vue'
-
 // 引入获取当前时间的函数
 import { getTime } from '@/utils/time'
 import type { LoginFormData } from '@/api/user/type'
 import useUserStore from '@/store/modules/user'
+import useElFormHelper from '@/hooks/useElFormHelper'
+import { LoginResponseData } from '@/api/user/type'
 
 // 引入用户相关的小仓库
 let userStore = useUserStore()
@@ -60,13 +41,14 @@ let userStore = useUserStore()
 let router = useRouter()
 // 获取路由
 let route = useRoute()
+
 // 控制按钮加载
 let loading = ref(false)
-
+// 获取el-form组件
+let loginFormRef = ref<FormInstance>()
 // 收集账号与密码的数据
 let loginForm = reactive<LoginFormData>({
-  username: 'admin',
-  // password: '111111', // 本地mock用户密码
+  username: 'admin',/* password: '111111', // 本地mock用户密码*/
   password: 'atguigu123',
 })
 /**
@@ -107,8 +89,6 @@ let loginRules = reactive<FormRules<LoginFormData>>({
     { trigger: 'change', validator: validatorPassword },
   ],
 })
-// 获取el-form组件
-let loginFormRef = ref<FormInstance>()
 
 // 登录按钮回调
 const login = async () => {
@@ -116,11 +96,9 @@ const login = async () => {
   try {
     loading.value = true
     // 保证全部表单项校验通过再发请求
-    await loginFormRef.value?.validate((valid, fields) => {
-      if (!valid) {
-        throw new Error('用户名或密码格式不合法！')
-      }
-    })
+    const { validateCallback } = useElFormHelper()
+    await loginFormRef.value?.validate(validateCallback)
+
     await userStore.userLogin(loginForm)
     // 判断登录的时候，路由路径query参数当中是否有redirect参数，如果有就填入本次query中；没有就跳转到首页
     let redirect: string = <string>route.query.redirect
@@ -136,13 +114,14 @@ const login = async () => {
     loading.value = false
     ElNotification({
       type: 'error',
+      dangerouslyUseHTMLString: true,
       message: (error as Error).message,
     })
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .login_container {
   width: 100%;
   height: 100vh;
