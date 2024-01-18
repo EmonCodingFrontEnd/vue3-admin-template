@@ -54,7 +54,16 @@
               icon="Edit"
               @click="updateTrademark(row)"
             ></el-button>
-            <el-button type="danger" size="small" icon="Delete"></el-button>
+            <el-popconfirm
+              :title="`确定要删除品牌 ${row.tmName} 吗？`"
+              width="280px"
+              icon="Delete"
+              @confirm="removeTrademark($event, row)"
+            >
+              <template #reference>
+                <el-button type="danger" size="small" icon="Delete"></el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -140,7 +149,7 @@
 
 <script setup lang="ts" name="Trademark">
 // 引入组合式API函数
-import { nextTick, reactive, ref, toRaw } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import type {
   FormInstance,
   FormRules,
@@ -155,6 +164,7 @@ import {
   PICTURE_UPLOAD_URL,
   reqAddOrUpdateTrademark,
   reqTrademark,
+  reqDeleteTrademark,
 } from '@/api/product/trademark'
 import type {
   Records,
@@ -214,6 +224,21 @@ const updateTrademark = (row: Trademark) => {
       { name: trademarkForm.tmName, url: trademarkForm.logoUrl },
     ] // 赋值文件
   })
+}
+const removeTrademark = async (event: MouseEvent, row: Trademark) => {
+  try {
+    const result: any = await reqDeleteTrademark(<number>row.id)
+    if (result.code === 200) {
+      pageNo.value = 1
+      await getHasTrademark() // 再次发送请求获取已有全部的品牌数据
+      ElMessage.success(`删除品牌成功！`)
+    } else {
+      ElMessage.error(`删除品牌失败！${result.data || result.message}`)
+    }
+  } catch (error) {
+    loading.value = false
+    ElMessage.error((error as Error).message)
+  }
 }
 
 // 控制按钮加载
@@ -275,6 +300,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   // response->即为当前这次上传图片post请求服务器返回的数据
   // trademarkForm.logoUrl = URL.createObjectURL(uploadFile.raw!) // blob:http://localhost:5173/406a0752-38ac-4360-accb-d5dc92e43cff
   trademarkForm.logoUrl = response.data
+  trademarkFormRef.value?.clearValidate('logoUrl') // 清除图片的校验
   if (avatarFileList.value.length > 1) avatarFileList.value.shift() // 剔除掉上一个文件
 }
 

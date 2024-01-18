@@ -17,6 +17,8 @@ enum API {
   // 图片上传地址
   PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 +
     '/admin/product/fileUpload',
+  // 删除已有品牌
+  DELETE_URL = '/admin/product/baseTrademark/remove/',
 }
 
 export const PICTURE_UPLOAD_URL: string = API.PICTURE_UPLOAD_URL.toString()
@@ -42,3 +44,6 @@ export const reqAddOrUpdateTrademark = (data: Trademark) => {
     return request8209.post<any, ResponseData>(API.ADD_TRADEMARK_URL, data)
   }
 }
+
+export const reqDeleteTrademark = (id: number) =>
+  request8209.delete<any, ResponseData>(API.DELETE_URL + `${id}`)
