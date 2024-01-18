@@ -44,7 +44,7 @@ export default function (reqData: () => void, limit: number = 3) {
   // 根据屏幕自动计算表格高度
   const handleFn = debounce(() => setHeight(), 150)
   onMounted(() => {
-    setTimeout(handleFn, 100)
+    setTimeout(handleFn, 150) // 测试发现Main组件的过度动画需要138ms左右
     window.addEventListener('resize', handleFn)
     reqData()
   })
