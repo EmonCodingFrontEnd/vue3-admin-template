@@ -105,6 +105,7 @@
             class="avatar-uploader"
             :action="PICTURE_UPLOAD_URL"
             :show-file-list="true"
+            v-model:file-list="avatarFileList"
             :before-upload="beforeAvatarUpload"
             :on-success="handleAvatarSuccess"
           >
@@ -139,7 +140,7 @@
 
 <script setup lang="ts" name="Trademark">
 // 引入组合式API函数
-import { nextTick, reactive, ref } from 'vue'
+import { nextTick, reactive, ref, toRaw } from 'vue'
 import type {
   FormInstance,
   FormRules,
@@ -147,6 +148,7 @@ import type {
   UploadInstance,
   UploadProps,
   UploadRawFile,
+  UploadUserFile,
 } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import {
@@ -207,7 +209,10 @@ const updateTrademark = (row: Trademark) => {
   dialogVisible.value = true
   // 注意：这里使用nextTick的原因是，确保表单项初始化的值是空，进而能保证表单重置 resetFields() 时具有清空的效果
   nextTick(() => {
-    Object.assign(trademarkForm, row)
+    Object.assign(trademarkForm, row) // 赋值表单
+    avatarFileList.value = [
+      { name: trademarkForm.tmName, url: trademarkForm.logoUrl },
+    ] // 赋值文件
   })
 }
 
@@ -243,6 +248,8 @@ const trademarkRules = reactive<FormRules<Trademark>>({
 
 // 上传图片组件
 const avatarUploader = ref<UploadInstance>()
+// 上传图片组件的fileList，与:show-file-list='true'建议联合使用，否则会出现文件表现不一致的情况（不影响业务所需提交的文件）
+const avatarFileList = ref<UploadUserFile[]>([])
 // 上传图片组件->上传之前的回调函数
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (
   rawFile: UploadRawFile,
@@ -268,6 +275,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   // response->即为当前这次上传图片post请求服务器返回的数据
   // trademarkForm.logoUrl = URL.createObjectURL(uploadFile.raw!) // blob:http://localhost:5173/406a0752-38ac-4360-accb-d5dc92e43cff
   trademarkForm.logoUrl = response.data
+  if (avatarFileList.value.length > 1) avatarFileList.value.shift() // 剔除掉上一个文件
 }
 
 // 对话框底部取消按钮的回调
