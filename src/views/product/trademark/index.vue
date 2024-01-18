@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card>
       <!-- 卡片顶部添加品牌按钮 -->
       <el-button
         type="primary"
@@ -21,7 +21,7 @@
       -->
       <el-table
         ref="tableRef"
-        class="tableClass"
+        class="trademark-table"
         :data="trademarkArr"
         :height="tableHeight"
         :max-height="tableHeight"
@@ -337,7 +337,7 @@ const confirm = async () => {
 </script>
 
 <style scoped lang="scss">
-.tableClass {
+.trademark-table {
   margin: 10px 0;
 }
 

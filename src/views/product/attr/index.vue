@@ -1,5 +1,8 @@
 <template>
-  <div>attr</div>
+  <div>
+    <el-card>123</el-card>
+    <el-card></el-card>
+  </div>
 </template>
 
 <script setup lang="ts" name="Attr"></script>

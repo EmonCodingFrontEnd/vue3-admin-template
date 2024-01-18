@@ -1,14 +1,14 @@
 import * as debounce from 'lodash/debounce'
-import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted, ref, nextTick } from 'vue'
 
-export default function (reqData: () => void) {
+export default function (reqData: () => void, limit: number = 3) {
   const tableRef = ref()
   const tableHeight = ref<number>()
 
   // 当前页码
   const pageNo = ref<number>(1)
   // 每一页展示多少条数据
-  const pageSize = ref<number>(3)
+  const pageSize = ref<number>(limit)
   // 存储已有品牌数据总数
   const total = ref<number>(0)
 
@@ -27,24 +27,24 @@ export default function (reqData: () => void) {
 
   const setHeight = () => {
     const $table = tableRef.value
-    const bottomOffset = 83
     if (!$table) return
-
+    const bottomOffset = 83
     // 计算列表高度并设置
-    const height =
+    // nextTick(() => {
+    tableHeight.value =
       window.innerHeight - $table.$el.getBoundingClientRect().top - bottomOffset
-    nextTick(() => {
-      tableHeight.value = height
-      $table.doLayout()
-    })
-      .then(() => {})
-      .catch(() => {})
+    $table.doLayout()
+    // })
+    //   .then(() => {
+    //   })
+    //   .catch(() => {
+    //   })
   }
 
   // 根据屏幕自动计算表格高度
   const handleFn = debounce(() => setHeight(), 150)
   onMounted(() => {
-    handleFn()
+    setTimeout(handleFn, 100)
     window.addEventListener('resize', handleFn)
     reqData()
   })
