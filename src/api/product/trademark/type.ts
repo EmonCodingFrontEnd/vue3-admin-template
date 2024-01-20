@@ -1,4 +1,4 @@
-import { ResponseData } from '@/api/base'
+import type { ResponseData } from '@/api/base'
 
 // 已有品牌的ts数据类型
 export interface Trademark {

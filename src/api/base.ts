@@ -4,3 +4,8 @@ export interface ResponseData {
   message: string
   ok: string
 }
+
+// 定义不需要返回值的应答类型
+export interface StringResponseData extends ResponseData {
+  data: string
+}

@@ -1,4 +1,4 @@
-import { ResponseData } from '@/api/base'
+import type { ResponseData } from '@/api/base'
 
 // 定义用户相关数据的TS类型
 // 登录接口请求参数类型

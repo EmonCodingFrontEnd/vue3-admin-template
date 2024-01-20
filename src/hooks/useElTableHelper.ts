@@ -1,7 +1,11 @@
 import * as debounce from 'lodash/debounce'
 import { onBeforeUnmount, onMounted, ref, nextTick } from 'vue'
 
-export default function (reqData: () => void, limit: number = 3) {
+export default function (
+  bottomOffset = 50,
+  reqData: () => void,
+  limit: number = 3,
+) {
   const tableRef = ref()
   const tableHeight = ref<number>()
 
@@ -28,7 +32,7 @@ export default function (reqData: () => void, limit: number = 3) {
   const setHeight = () => {
     const $table = tableRef.value
     if (!$table) return
-    const bottomOffset = 83
+    // const bottomOffset = 83
     // 计算列表高度并设置
     // nextTick(() => {
     tableHeight.value =
@@ -58,5 +62,6 @@ export default function (reqData: () => void, limit: number = 3) {
     total,
     handleSizeChange,
     handleCurrentChange,
+    setHeight: handleFn, //
   }
 }

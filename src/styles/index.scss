@@ -15,3 +15,9 @@
   background-color: yellowgreen;
   border-radius: 10px;
 }
+
+// 全局修改 nprogress 进度条颜色
+#nprogress .bar {
+  background-image: linear-gradient(to right, red, cyan, yellow, pink) !important;
+  height: 8px !important;
+}

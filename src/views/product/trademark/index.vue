@@ -20,7 +20,7 @@
           align=>列对齐方式
       -->
       <el-table
-        ref="tableRef"
+        ref="trademarkTableRef"
         class="trademark-table"
         :data="trademarkArr"
         :height="tableHeight"
@@ -46,7 +46,12 @@
             />
           </template>
         </el-table-column>
-        <el-table-column label="品牌操作" fixed="right" width="120px">
+        <el-table-column
+          label="品牌操作"
+          width="120px"
+          align="center"
+          fixed="right"
+        >
           <template v-slot="{ row, $index }">
             <el-button
               type="warning"
@@ -192,14 +197,14 @@ const getHasTrademark = async () => {
 }
 
 const {
-  tableRef,
+  tableRef: trademarkTableRef,
   tableHeight,
   pageNo,
   pageSize,
   total,
   handleSizeChange,
   handleCurrentChange,
-} = useElTableHelper(getHasTrademark)
+} = useElTableHelper(83, getHasTrademark)
 
 // ==================================================华丽的分割线==================================================
 
@@ -322,7 +327,7 @@ const confirm = async () => {
       await getHasTrademark() // 再次发送请求获取已有全部的品牌数据
       ElMessage.success(`${operType.value}成功！`)
     } else {
-      ElMessage.error(`${operType.value}失败！${result.data}`)
+      ElMessage.error(`${operType.value}失败！${result.data || result.message}`)
     }
     loading.value = false // 关闭进度提示
     dialogVisible.value = false // 关闭对话框
