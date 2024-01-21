@@ -1,115 +1,115 @@
 <template>
   <el-form
-    ref='spuFormRef'
-    :model='spuForm'
-    :rules='spuRules'
-    style='width: 80%'
-    label-width='120px'
+    ref="spuFormRef"
+    :model="spuForm"
+    :rules="spuRules"
+    style="width: 80%"
+    label-width="120px"
   >
-    <el-form-item label='SPU名称：' prop='attrName'>
+    <el-form-item label="SPU名称：" prop="attrName">
       <el-input
-        placeholder='请您输入SPU名称'
-        v-model='spuForm.spuName'
+        placeholder="请您输入SPU名称"
+        v-model="spuForm.spuName"
       ></el-input>
     </el-form-item>
-    <el-form-item label='SPU品牌：' prop='attrName'>
-      <el-select v-model='spuForm.tmId'>
-        <el-option label='华为' value='华为'></el-option>
-        <el-option label='oppo' value='oppo'></el-option>
-        <el-option label='vivo' value='vivo'></el-option>
+    <el-form-item label="SPU品牌：" prop="attrName">
+      <el-select v-model="spuForm.tmId">
+        <el-option label="华为" value="华为"></el-option>
+        <el-option label="oppo" value="oppo"></el-option>
+        <el-option label="vivo" value="vivo"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label='SPU描述：'>
+    <el-form-item label="SPU描述：">
       <el-input
-        type='textarea'
-        placeholder='请你输入SPU描述'
-        rows='5'
+        type="textarea"
+        placeholder="请你输入SPU描述"
+        rows="5"
       ></el-input>
     </el-form-item>
-    <el-form-item label='SPU图片：'>
+    <el-form-item label="SPU图片：">
       <el-upload
-        ref='spuImgUploader'
-        v-model:file-list='spuImgFileList'
-        action='https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15'
-        list-type='picture-card'
-        :on-preview='handlePictureCardPreview'
-        :on-remove='handleRemove'
+        ref="spuImgUploader"
+        v-model:file-list="spuImgFileList"
+        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        list-type="picture-card"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
       >
         <el-icon>
           <Plus />
         </el-icon>
       </el-upload>
-      <el-dialog v-model='dialogVisible'>
-        <img w-full :src='dialogImageUrl' alt='Preview Image' />
+      <el-dialog v-model="dialogVisible">
+        <img w-full :src="dialogImageUrl" alt="Preview Image" />
       </el-dialog>
     </el-form-item>
-    <el-form-item label='SPU销售属性：' prop='attrName'>
+    <el-form-item label="SPU销售属性：" prop="attrName">
       <!--展示销售属性的下拉菜单-->
-      <el-select v-model='华为'>
-        <el-option label='华为' value='华为'></el-option>
-        <el-option label='oppo' value='oppo'></el-option>
-        <el-option label='vivo' value='vivo'></el-option>
+      <el-select v-model="华为">
+        <el-option label="华为" value="华为"></el-option>
+        <el-option label="oppo" value="oppo"></el-option>
+        <el-option label="vivo" value="vivo"></el-option>
       </el-select>
       <el-button
-        style='margin-left: 10px'
-        type='primary'
-        size='default'
-        icon='Plus'
+        style="margin-left: 10px"
+        type="primary"
+        size="default"
+        icon="Plus"
       >
         添加属性值
       </el-button>
       <!--table展示销售属性与属性值的地方-->
       <el-table
-        ref='skuTableRef'
-        class='sku-table'
-        :data='skuArr'
-        :height='skuTableHeight'
-        :max-height='skuTableHeight'
+        ref="skuTableRef"
+        class="sku-table"
+        :data="skuArr"
+        :height="skuTableHeight"
+        :max-height="skuTableHeight"
         border
         stripe
       >
         <el-table-column
-          label='序号'
-          type='index'
-          width='80px'
-          align='center'
+          label="序号"
+          type="index"
+          width="80px"
+          align="center"
           fixed
         ></el-table-column>
-        <el-table-column label='销售属性名称' width='120px'></el-table-column>
-        <el-table-column label='销售属性值'></el-table-column>
+        <el-table-column label="销售属性名称" width="120px"></el-table-column>
+        <el-table-column label="销售属性值"></el-table-column>
         <el-table-column
-          label='属性操作'
-          width='120px'
-          align='center'
-          fixed='right'
+          label="属性操作"
+          width="120px"
+          align="center"
+          fixed="right"
         >
-          <template v-slot='{ row, $index }'>
-            <el-button type='primary' size='small' title='保存'>
-              <SvgIcon name='save' color='white' />
+          <template v-slot="{ row, $index }">
+            <el-button type="primary" size="small" title="保存">
+              <SvgIcon name="save" color="white" />
             </el-button>
             <el-button
-              type='primary'
-              size='small'
-              icon='Close'
-              title='取消'
+              type="primary"
+              size="small"
+              icon="Close"
+              title="取消"
             ></el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type='primary' size='default'>
-        <SvgIcon name='save' color='white' />
-        <span style='margin-left: 5px'>保存</span>
+      <el-button type="primary" size="default">
+        <SvgIcon name="save" color="white" />
+        <span style="margin-left: 5px">保存</span>
       </el-button>
-      <el-button type='primary' size='default' icon='Close' @click='cancelSpu'>
+      <el-button type="primary" size="default" icon="Close" @click="cancelSpu">
         取消
       </el-button>
     </el-form-item>
   </el-form>
 </template>
 
-<script setup lang='ts' name='SpuForm'>
+<script setup lang="ts" name="SpuForm">
 import { markRaw, reactive, ref } from 'vue'
 import type {
   FormInstance,
@@ -190,13 +190,12 @@ const {
   tableRef: skuTableRef,
   tableHeight: skuTableHeight,
   setHeight: skuSetHeight,
-} = useElTableHelper(129, () => {
-})
+} = useElTableHelper(129, () => {})
 
 defineExpose({ skuSetHeight })
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .sku-table {
   margin: 10px 0;
 }

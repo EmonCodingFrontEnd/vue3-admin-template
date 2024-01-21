@@ -1,89 +1,89 @@
 <template>
   <div>
-    <Category ref='categoryRef'></Category>
-    <el-card style='margin: 10px 0'>
-      <div v-show='scene === 0'>
+    <Category ref="categoryRef"></Category>
+    <el-card style="margin: 10px 0">
+      <div v-show="scene === 0">
         <el-button
-          type='primary'
-          icon='Plus'
-          :disabled='disableApuOpeator'
-          @click='addSpu'
+          type="primary"
+          icon="Plus"
+          :disabled="disableApuOpeator"
+          @click="addSpu"
         >
           添加Spu
         </el-button>
         <el-table
-          ref='spuTableRef'
-          class='spu-table'
-          :data='spuArr'
-          :height='spuTableHeight'
-          :max-height='spuTableHeight'
+          ref="spuTableRef"
+          class="spu-table"
+          :data="spuArr"
+          :height="spuTableHeight"
+          :max-height="spuTableHeight"
           border
           stripe
         >
           <el-table-column
-            label='序号'
-            type='index'
-            :index='(pageNo - 1) * pageSize + 1'
-            width='80px'
-            align='center'
+            label="序号"
+            type="index"
+            :index="(pageNo - 1) * pageSize + 1"
+            width="80px"
+            align="center"
             fixed
           ></el-table-column>
           <el-table-column
-            label='SPU名称'
-            width='200px'
-            prop='spuName'
-            :show-overflow-tooltip='true'
+            label="SPU名称"
+            width="200px"
+            prop="spuName"
+            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
-            label='SPU描述'
-            prop='description'
-            :show-overflow-tooltip='true'
+            label="SPU描述"
+            prop="description"
+            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
-            label='SPU操作'
-            width='230px'
-            align='center'
-            fixed='right'
+            label="SPU操作"
+            width="230px"
+            align="center"
+            fixed="right"
           >
-            <template v-slot='{ row, $index }'>
+            <template v-slot="{ row, $index }">
               <el-button
-                type='primary'
-                size='small'
-                icon='Plus'
-                :disabled='disableApuOpeator'
-                title='添加SKU'
+                type="primary"
+                size="small"
+                icon="Plus"
+                :disabled="disableApuOpeator"
+                title="添加SKU"
                 plain
                 round
               ></el-button>
               <el-button
-                type='warning'
-                size='small'
-                icon='Edit'
-                :disabled='disableApuOpeator'
-                title='修改SPU'
-                @click='updateSpu'
+                type="warning"
+                size="small"
+                icon="Edit"
+                :disabled="disableApuOpeator"
+                title="修改SPU"
+                @click="updateSpu"
               ></el-button>
               <el-button
-                type='primary'
-                size='small'
-                icon='View'
-                :disabled='disableApuOpeator'
-                title='查看SKU列表'
+                type="primary"
+                size="small"
+                icon="View"
+                :disabled="disableApuOpeator"
+                title="查看SKU列表"
                 plain
                 round
               ></el-button>
               <el-popconfirm
-                :title='`确定要删除属性 ${row.attrName} 吗？`'
-                width='280px'
-                icon='Delete'
+                :title="`确定要删除属性 ${row.attrName} 吗？`"
+                width="280px"
+                icon="Delete"
               >
                 <template #reference>
                   <el-button
-                    type='danger'
-                    size='small'
-                    icon='Delete'
-                    :disabled='disableApuOpeator'
-                    title='删除SPU'
+                    type="danger"
+                    size="small"
+                    icon="Delete"
+                    :disabled="disableApuOpeator"
+                    title="删除SPU"
                   ></el-button>
                 </template>
               </el-popconfirm>
@@ -91,26 +91,34 @@
           </el-table-column>
         </el-table>
         <el-pagination
-          v-model:current-page='pageNo'
-          v-model:page-size='pageSize'
-          :page-sizes='[3, 5, 10, 20]'
-          :background='true'
-          layout='prev, pager, next, jumper, ->, total, sizes'
-          :total='total'
-          @size-change='handleSizeChange'
-          @current-change='handleCurrentChange'
-          :disabled='disableApuOpeator'
+          v-model:current-page="pageNo"
+          v-model:page-size="pageSize"
+          :page-sizes="[3, 5, 10, 20]"
+          :background="true"
+          layout="prev, pager, next, jumper, ->, total, sizes"
+          :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :disabled="disableApuOpeator"
         />
       </div>
       <!--添加SPU|修改SPU子组件-->
-      <SpuForm v-show='scene === 1' ref='spuFormRef' @changeScene='changeScene'></SpuForm>
+      <SpuForm
+        v-show="scene === 1"
+        ref="spuFormRef"
+        @changeScene="changeScene"
+      ></SpuForm>
       <!--添加SKU子组件-->
-      <SkuForm v-show='scene === 2' ref='skuFormRef' @changeScene='changeScene'></SkuForm>
+      <SkuForm
+        v-show="scene === 2"
+        ref="skuFormRef"
+        @changeScene="changeScene"
+      ></SkuForm>
     </el-card>
   </div>
 </template>
 
-<script setup lang='ts' name='Spu'>
+<script setup lang="ts" name="Spu">
 import { computed, nextTick, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import useCategoryStore from '@/store/modules/category'
@@ -197,7 +205,7 @@ const changeScene = (sceneValue: number) => {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .spu-table {
   margin: 10px 0;
 }
