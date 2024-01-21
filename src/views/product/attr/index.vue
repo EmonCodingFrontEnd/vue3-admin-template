@@ -84,7 +84,7 @@
           :model="attrForm"
           :rules="attrRules"
           :inline="true"
-          label-width="120px"
+          label-width="134px"
         >
           <el-form-item label="属性名称：" prop="attrName">
             <el-input
@@ -197,15 +197,10 @@ const disableAttrOpeator = computed(() => {
   return !c3Id.value
 })
 
-const { tableRef: attrTableRef, tableHeight: attrTableHeight } =
-  useElTableHelper(61, () => {})
-
 // 存储已有的属性与属性值
 const attrArr = ref<AttrList>([])
-
 // 监听仓库三级分类ID变化
 watch(c3Id, () => getAttr())
-
 // 获取已有的属性与属性值
 const getAttr = async () => {
   const { c1Id, c2Id, c3Id } = categoryStore
@@ -222,6 +217,8 @@ const getAttr = async () => {
   }
 }
 
+const { tableRef: attrTableRef, tableHeight: attrTableHeight } =
+  useElTableHelper(61, () => {})
 // ==================================================华丽的分割线==================================================
 // 定义卡片内容切换的变量：scene=0，显示table；scene=1，显示添加|修改属性
 const scene = ref<number>(0)

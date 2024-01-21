@@ -2,7 +2,7 @@
 export interface ResponseData {
   code: number
   message: string
-  ok: string
+  ok: boolean
 }
 
 // 定义不需要返回值的应答类型
