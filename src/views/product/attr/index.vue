@@ -16,8 +16,8 @@
           ref="attrTableRef"
           class="attr-table"
           :data="attrArr"
-          :height="tableHeight"
-          :max-height="tableHeight"
+          :height="attrTableHeight"
+          :max-height="attrTableHeight"
           border
           stripe
         >
@@ -190,8 +190,6 @@ import useElFormHelper from '@/hooks/useElFormHelper'
 
 // 引用分类组件
 const categoryRef = ref()
-const { tableRef: attrTableRef, tableHeight } = useElTableHelper(61, () => {})
-
 const categoryStore = useCategoryStore()
 const { c3Id } = storeToRefs(categoryStore)
 // 全局禁用属性操作：若分类信息缺失，禁用操作
@@ -199,8 +197,9 @@ const disableAttrOpeator = computed(() => {
   return !c3Id.value
 })
 
-// 定义卡片内容切换的变量：scene=0，显示table；scene=1，显示添加|修改属性
-const scene = ref<number>(0)
+const { tableRef: attrTableRef, tableHeight: attrTableHeight } =
+  useElTableHelper(61, () => {})
+
 // 存储已有的属性与属性值
 const attrArr = ref<AttrList>([])
 
@@ -224,6 +223,9 @@ const getAttr = async () => {
 }
 
 // ==================================================华丽的分割线==================================================
+// 定义卡片内容切换的变量：scene=0，显示table；scene=1，显示添加|修改属性
+const scene = ref<number>(0)
+
 // 监听场景值的变化
 watch(
   scene,
