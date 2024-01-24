@@ -17,7 +17,7 @@ export interface AttrValue {
   id?: number | undefined // 属性值id
   valueName: string
   attrId?: number | undefined // 属性值归属的属性id
-  edit?: boolean
+  edit?: boolean // non-backend-field
 }
 
 // 存储每一个属性值的数组类型

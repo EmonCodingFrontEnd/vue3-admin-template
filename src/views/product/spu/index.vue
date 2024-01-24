@@ -61,7 +61,7 @@
                 icon="Edit"
                 :disabled="disableApuOpeator"
                 title="修改SPU"
-                @click="updateSpu"
+                @click="updateSpu(row)"
               ></el-button>
               <el-button
                 type="primary"
@@ -122,12 +122,12 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import useCategoryStore from '@/store/modules/category'
-import { reqHasSpu } from '@/api/product/spu'
 import type {
   SpuData,
   SpuDataList,
   HasSpuResponseData,
 } from '@/api/product/spu/type'
+import { reqHasSpu } from '@/api/product/spu'
 import useElTableHelper from '@/hooks/useElTableHelper'
 // 引入子组件
 import SpuForm from '@/views/product/spu/SpuForm.vue'
@@ -180,8 +180,6 @@ watch(
   () =>
     nextTick(() => {
       categoryRef.value.setDisabled(scene.value === 1)
-      // scene=1时触发调整SPU添加|修改页面中table的高度
-      if (scene.value === 1) spuFormRef.value.skuSetHeight()
     }),
   { immediate: true },
 )
@@ -191,8 +189,10 @@ const addSpu = () => {
   scene.value = 1
 }
 // 修改SPU按钮的回调
-const updateSpu = () => {
+const updateSpu = (row: SpuData) => {
   scene.value = 1
+  // 调用子组件实例的初始化方法
+  spuFormRef.value.init(row)
 }
 
 // 对SpuForm表单的引用

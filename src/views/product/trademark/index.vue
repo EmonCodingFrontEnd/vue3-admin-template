@@ -115,7 +115,7 @@
         </el-form-item>
         <el-form-item label="品牌LOGO：" prop="logoUrl">
           <el-upload
-            ref="avatarUploader"
+            ref="avatarUploaderRef"
             class="avatar-uploader"
             :action="PICTURE_UPLOAD_URL"
             :show-file-list="true"
@@ -216,7 +216,7 @@ const addTrademark = () => {
   operType.value = '新增品牌'
   dialogVisible.value = true
   trademarkFormRef.value?.resetFields() // 重置该表单项，将其值重置为初始值，并移除校验结果
-  avatarUploader.value?.clearFiles() // 清空已上传的文件列表
+  avatarUploaderRef.value?.clearFiles() // 清空已上传的文件列表
 }
 // 修改品牌按钮的回调
 const updateTrademark = (row: Trademark) => {
@@ -277,7 +277,7 @@ const trademarkRules = reactive<FormRules<Trademark>>({
 })
 
 // 上传图片组件
-const avatarUploader = ref<UploadInstance>()
+const avatarUploaderRef = ref<UploadInstance>()
 // 上传图片组件的fileList，与:show-file-list='true'建议联合使用，否则会出现文件表现不一致的情况（不影响业务所需提交的文件）
 const avatarFileList = ref<UploadUserFile[]>([])
 // 上传图片组件->上传之前的回调函数

@@ -4,6 +4,7 @@ import type { ResponseData } from '@/api/base'
 import type {
   Trademark,
   TrademarkResponseData,
+  AllTrademarkResponseData,
 } from '@/api/product/trademark/type'
 
 // 品牌管理模块接口地址
@@ -44,6 +45,6 @@ export const reqAddOrUpdateTrademark = (data: Trademark) => {
     return request8209.post<any, ResponseData>(API.ADD_TRADEMARK_URL, data)
   }
 }
-
+// 删除品牌
 export const reqDeleteTrademark = (id: number) =>
   request8209.delete<any, ResponseData>(API.DELETE_URL + `${id}`)
