@@ -1,155 +1,170 @@
 <template>
   <el-form
-    ref="spuFormRef"
-    :model="spuForm"
-    :rules="spuRules"
-    style="width: 80%"
-    label-width="120px"
+    ref='spuFormRef'
+    :model='spuForm'
+    :rules='spuRules'
+    style='width: 80%'
+    label-width='120px'
   >
-    <el-form-item label="SPU名称：" prop="spuName">
+    <el-form-item label='SPU名称：' prop='spuName'>
       <el-input
-        placeholder="请您输入SPU名称"
-        v-model="spuForm.spuName"
+        placeholder='请您输入SPU名称'
+        v-model='spuForm.spuName'
       ></el-input>
     </el-form-item>
-    <el-form-item label="SPU品牌：" prop="tmId">
-      <el-select v-model="spuForm.tmId">
+    <el-form-item label='SPU品牌：' prop='tmId'>
+      <el-select v-model='spuForm.tmId'>
         <el-option
-          :label="trademark.tmName"
-          :value="trademark.id"
-          v-for="trademark in allTradeMark"
-          :key="trademark.id"
+          :label='trademark.tmName'
+          :value='trademark.id'
+          v-for='trademark in allTradeMark'
+          :key='trademark.id'
         ></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="SPU描述：">
+    <el-form-item label='SPU描述：'>
       <el-input
-        type="textarea"
-        placeholder="请你输入SPU描述"
-        rows="5"
-        v-model="spuForm.description"
+        type='textarea'
+        placeholder='请你输入SPU描述'
+        rows='5'
+        v-model='spuForm.description'
       ></el-input>
     </el-form-item>
-    <el-form-item label="SPU图片：">
+    <el-form-item label='SPU图片：' prop='spuImageList'>
       <el-upload
-        ref="spuImageUploaderRef"
-        v-model:file-list="spuImageList"
-        :action="PICTURE_UPLOAD_URL"
-        list-type="picture-card"
-        :before-upload="beforeUpload"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
+        ref='spuImageUploaderRef'
+        v-model:file-list='spuImageFileList'
+        :action='PICTURE_UPLOAD_URL'
+        list-type='picture-card'
+        :before-upload='beforeUpload'
+        :on-success='handleAvatarSuccess'
+        :on-preview='handlePreview'
+        :on-remove='handleRemove'
       >
         <el-icon>
           <Plus />
         </el-icon>
       </el-upload>
-      <el-dialog v-model="dialogVisible">
+      <el-dialog v-model='dialogVisible'>
         <img
           w-full
-          :src="dialogImageUrl"
-          alt="预览图片"
-          style="width: 100%; height: 100%"
+          :src='dialogImageUrl'
+          alt='预览图片'
+          style='width: 100%; height: 100%'
         />
       </el-dialog>
     </el-form-item>
-    <el-form-item label="SPU销售属性：">
+    <el-form-item label='SPU销售属性：' prop='spuSaleAttrList'>
       <!--展示销售属性的下拉菜单-->
       <el-select
-        v-model="attrIdAndAttrName"
-        :placeholder="
+        v-model='attrIdAndAttrName'
+        :placeholder='
           unSelectSaleAttr.length
             ? `还有 ${unSelectSaleAttr.length} 未选择`
             : `无`
-        "
+        '
       >
         <el-option
-          :label="saleAttr.name"
-          :value="`${saleAttr.id}:${saleAttr.name}`"
-          v-for="saleAttr in unSelectSaleAttr"
-          :key="saleAttr.id"
+          :label='saleAttr.name'
+          :value='`${saleAttr.id}:${saleAttr.name}`'
+          v-for='saleAttr in unSelectSaleAttr'
+          :key='saleAttr.id'
         ></el-option>
       </el-select>
       <el-button
-        style="margin-left: 10px"
-        type="primary"
-        size="default"
-        icon="Plus"
-        :disabled="!attrIdAndAttrName"
-        @click="addSaleAttr"
+        style='margin-left: 10px'
+        type='primary'
+        size='default'
+        icon='Plus'
+        :disabled='!attrIdAndAttrName'
+        @click='addSaleAttr'
       >
         添加属性值
       </el-button>
       <!--table展示销售属性与属性值的地方-->
       <el-table
-        ref="skuTableRef"
-        class="sku-table"
-        :data="spuSaleAttrList"
+        ref='skuTableRef'
+        class='sku-table'
+        :data='spuSaleAttrList'
         border
         stripe
       >
         <el-table-column
-          label="序号"
-          type="index"
-          width="80px"
-          align="center"
+          label='序号'
+          type='index'
+          width='80px'
+          align='center'
           fixed
         ></el-table-column>
         <el-table-column
-          label="销售属性名称"
-          width="120px"
-          prop="saleAttrName"
+          label='销售属性名称'
+          width='120px'
+          prop='saleAttrName'
         ></el-table-column>
-        <el-table-column label="销售属性值">
-          <template v-slot="{ row, $index }">
+        <el-table-column label='销售属性值'>
+          <template v-slot='{ row, $index }'>
             <el-tag
-              v-for="item in row.spuSaleAttrValueList"
-              :key="item.id"
-              style="margin-left: 5px"
+              v-for='(item,index) in row.spuSaleAttrValueList'
+              :key='item.id'
+              style='margin-left: 5px'
               closable
+              @close='row.spuSaleAttrValueList.splice(index,1)'
             >
               {{ item.saleAttrValueName }}
             </el-tag>
+            <el-input
+              v-if='row.edit'
+              placeholder='请你输入属性值'
+              size='small'
+              style='width: 100px; margin-left: 5px'
+              v-model.trim='row.saleAttrValueName'
+              @blur='toReadMode($event,row, $index)'
+              @keyup.enter='inputRefArr[$index].blur()'
+              :ref='(el) => (inputRefArr[$index] = el)'
+            ></el-input>
             <el-button
-              type="primary"
-              size="small"
-              icon="Plus"
-              style="margin-left: 5px"
+              v-else
+              type='primary'
+              size='small'
+              icon='Plus'
+              style='margin-left: 5px'
+              @click='toEditMode(row, $index)'
             ></el-button>
           </template>
         </el-table-column>
         <el-table-column
-          label="操作"
-          width="120px"
-          align="center"
-          fixed="right"
+          label='操作'
+          width='120px'
+          align='center'
+          fixed='right'
         >
-          <template v-slot="{ row, $index }">
+          <template v-slot='{ row, $index }'>
             <el-button
-              type="danger"
-              size="small"
-              icon="Delete"
-              title="删除"
-              @click="spuSaleAttrList.splice($index, 1)"
+              type='danger'
+              size='small'
+              icon='Delete'
+              title='删除'
+              @click='spuSaleAttrList.splice($index, 1)'
             ></el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="default">
-        <SvgIcon name="save" color="white" />
-        <span style="margin-left: 5px">保存</span>
+      <el-button type='primary' size='default' @click='saveSpu'>
+        <SvgIcon name='save' color='white' />
+        <span style='margin-left: 5px'>保存</span>
       </el-button>
-      <el-button type="primary" size="default" icon="Close" @click="cancelSpu">
-        取消
+      <el-button type='primary' size='default' @click='cancelSpu'>
+        <SvgIcon name='cancel' color='white' />
+        <span style='margin-left: 5px'>取消</span>
       </el-button>
     </el-form-item>
   </el-form>
 </template>
 
-<script setup lang="ts" name="SpuForm">
-import { computed, markRaw, reactive, ref } from 'vue'
+<script setup lang='ts' name='SpuForm'>
+import { computed, markRaw, nextTick, reactive, ref } from 'vue'
 import type {
   FormInstance,
   FormRules,
@@ -161,7 +176,6 @@ import type {
   UploadUserFile,
 } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { Attr } from '@/api/product/attr/type'
 import type {
   AllSaleAttrResponseData,
   AllTrademarkResponseData,
@@ -171,23 +185,21 @@ import type {
   SpuHasSaleAttrResponseData,
   SpuImage,
   SpuSaleAttr,
+  SpuSaleAttrValue,
 } from '@/api/product/spu/type'
 import {
   PICTURE_UPLOAD_URL,
   reqAllSaleAttr,
   reqAllTrademark,
   reqSpuHasImageList,
-  reqSpuHasSaleAttrList,
+  reqSpuHasSaleAttrList, reqAddOrUpdateSpuInfo,
 } from '@/api/product/spu'
 import type { Trademark } from '@/api/product/trademark/type'
 import * as cloneDeep from 'lodash/cloneDeep'
+import { StringResponseData } from '@/api/base'
+import useElFormHelper from '@/hooks/useElFormHelper'
 
 const emit = defineEmits(['changeScene'])
-// 取消对SPU的操作
-const cancelSpu = () => {
-  emit('changeScene', 0)
-}
-
 // ==================================================华丽的分割线==================================================
 // 对Form表单的引用
 const spuFormRef = ref<FormInstance>()
@@ -227,15 +239,42 @@ const initSpuForm = markRaw({
 })
 // 深度拷贝后使用，避免污染初始的属性
 const spuForm = reactive<SpuData>(cloneDeep(initSpuForm))
+const validatorSpuImageList = (rule: any, value: any, callback: any) => {
+  if (spuImageFileList.value.length > 0) {
+    callback()
+  } else {
+    callback(new Error('商品图片至少一张！'))
+  }
+}
+const validatorSpuSaleAttrList = (rule: any, value: any, callback: any) => {
+  if (spuSaleAttrList.value.length > 0) {
+    callback()
+  } else {
+    callback(new Error('商品属性至少一个！'))
+  }
+}
 // 定义表单校验需要的配置对象
-const spuRules = reactive<FormRules<Attr>>({
-  attrName: [
+const spuRules = reactive<FormRules<SpuData>>({
+  spuName: [
     {
       required: true,
       min: 2,
-      message: '属性名称长度至少2位',
+      message: '商品名称长度至少2位',
       trigger: 'change',
     },
+  ],
+  tmId: [
+    {
+      required: true,
+      message: '商品品牌不允许为空',
+      trigger: 'change',
+    },
+  ],
+  spuImageList: [
+    { trigger: 'change', validator: validatorSpuImageList },
+  ],
+  spuSaleAttrList: [
+    { trigger: 'change', validator: validatorSpuSaleAttrList },
   ],
 })
 
@@ -243,21 +282,17 @@ const spuRules = reactive<FormRules<Attr>>({
 const allTradeMark = ref<Trademark[]>([])
 // 平台销售属性列表
 const allSaleAttr = ref<SaleAttr[]>([])
-// SPU的销售属性列表
-const spuSaleAttrList = ref<SpuSaleAttr[]>([])
-// SPU的图片列表
-const spuImageList = ref<SpuImage[]>([])
 
 // ==================================================华丽的分割线==================================================
 // 照片墙组件
 const spuImageUploaderRef = ref<UploadInstance>()
 // 照片墙组件的fileList
-// const spuImageFileList = ref<UploadUserFile[]>([
-//   // {
-//   //   name: '',
-//   //   url: '',
-//   // },
-// ])
+const spuImageFileList = ref<UploadUserFile[]>([
+  // {
+  //   name: '',
+  //   url: '',
+  // },
+])
 // 照片墙预览对话框是否显示
 const dialogVisible = ref<boolean>(false)
 // 预览时展示的图片地址
@@ -277,6 +312,13 @@ const beforeUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => {
   }
   return true
 }
+// 上传图片组件->上传成功的回调函数
+const handleAvatarSuccess: UploadProps['onSuccess'] = (
+  response: any,
+  uploadFile: UploadFile,
+) => {
+  spuFormRef.value?.clearValidate('spuImageList') // 清除图片的校验
+}
 // 点击预览
 const handlePreview: UploadProps['onPreview'] = (uploadFile: UploadFile) => {
   dialogImageUrl.value = uploadFile.url!
@@ -291,6 +333,8 @@ const handleRemove: UploadProps['onRemove'] = (
 }
 
 // ==================================================华丽的分割线==================================================
+// SPU的销售属性列表
+const spuSaleAttrList = ref<SpuSaleAttr[]>([])
 // 计算当前SPU尚未拥有的销售属性
 const unSelectSaleAttr = computed(() => {
   return allSaleAttr.value.filter((item) => {
@@ -302,12 +346,14 @@ const unSelectSaleAttr = computed(() => {
 
 // 收集商品销售属性
 const attrIdAndAttrName = ref<string>('')
+// 准备一个数组：将来存储对应的组件实例el-input
+const inputRefArr = ref<any>([])
+
 // 添加销售属性的回调
 const addSaleAttr = () => {
-  const [baseSaleAttrIdStr, saleAttrName] = attrIdAndAttrName.value?.split(':')
-  const baseSaleAttrId: number = baseSaleAttrIdStr as number
+  const [baseSaleAttrId, saleAttrName] = attrIdAndAttrName.value?.split(':')
   const newSaleAttr: SpuSaleAttr = {
-    baseSaleAttrId,
+    baseSaleAttrId: baseSaleAttrId as number,
     saleAttrName,
     spuSaleAttrValueList: [],
   }
@@ -315,6 +361,34 @@ const addSaleAttr = () => {
   attrIdAndAttrName.value = ''
 }
 
+// 进入阅读模式
+const toReadMode = ($event: Event, row: SpuSaleAttr, $index: number) => {
+  const { baseSaleAttrId, saleAttrName, saleAttrValueName } = row
+  if (!saleAttrValueName) {
+    return ElMessage.error('属性值名称不允许为空！')
+  }
+  const existDuplicate = row.spuSaleAttrValueList
+    .some((item) => item.saleAttrValueName === saleAttrValueName)
+  if (existDuplicate) {
+    return ElMessage.error('属性值不允许重复！')
+  }
+
+  const newSaleAttrValue: SpuSaleAttrValue = {
+    baseSaleAttrId,
+    saleAttrName,
+    saleAttrValueName: saleAttrValueName as string,
+  }
+  row.spuSaleAttrValueList.push(newSaleAttrValue)
+  // 收集后，删除属性值名称
+  delete row.saleAttrValueName
+  row.edit = false
+}
+
+// 进入编辑模式
+const toEditMode = (row: SpuSaleAttr, $index: number) => {
+  row.edit = true
+  nextTick(() => inputRefArr.value[$index].focus())
+}
 // 对Table表格的引用
 const skuTableRef = ref()
 // ==================================================华丽的分割线==================================================
@@ -327,9 +401,10 @@ const init = async (spuInfo: SpuData) => {
     attrIdAndAttrName.value = ''
   } else {
     // 新增
-    Object.assign(spuForm, cloneDeep(initSpuForm))
+    Object.assign(spuForm, cloneDeep(initSpuForm), spuInfo)
     attrIdAndAttrName.value = ''
   }
+  spuFormRef.value?.clearValidate()
 
   // 获取全部品牌的数据
   const trademarkResult: AllTrademarkResponseData = await reqAllTrademark()
@@ -341,27 +416,73 @@ const init = async (spuInfo: SpuData) => {
   if (saleAttrResult.code === 200) {
     allSaleAttr.value = saleAttrResult.data
   }
-  // 获取SPU的销售属性信息
-  const spuSaleAttrResult: SpuHasSaleAttrResponseData =
-    await reqSpuHasSaleAttrList(spuId as number)
-  if (spuSaleAttrResult.code === 200) {
-    spuSaleAttrList.value = spuSaleAttrResult.data
-  }
   // 获取SPU的图片信息
-  const spuImageResult: SpuHasImageResponseData = await reqSpuHasImageList(
-    spuId as number,
-  )
-  if (spuImageResult.code === 200) {
-    spuImageList.value = spuImageResult.data.map((item) => {
-      return { name: item.imgName, url: item.imgUrl } as SpuImage
+  if (spuId) {
+    const spuImageResult: SpuHasImageResponseData = await reqSpuHasImageList(
+      spuId as number,
+    )
+    if (spuImageResult.code === 200) {
+      spuImageFileList.value = spuImageResult.data.map((item) => {
+        return { name: item.imgName, url: item.imgUrl } as UploadUserFile
+      })
+    }
+  } else {
+    spuImageFileList.value = []
+  }
+  // 获取SPU的销售属性信息
+  if (spuId) {
+    const spuSaleAttrResult: SpuHasSaleAttrResponseData =
+      await reqSpuHasSaleAttrList(spuId as number)
+    if (spuSaleAttrResult.code === 200) {
+      spuSaleAttrList.value = spuSaleAttrResult.data
+    }
+  } else {
+    spuSaleAttrList.value = []
+  }
+}
+
+// ==================================================华丽的分割线==================================================
+// 保存对SPU的操作
+const saveSpu = async () => {
+  try {
+    // 保证全部表单项校验通过再发请求
+    const { validateCallback } = useElFormHelper()
+    await spuFormRef.value?.validate(validateCallback)
+
+    // 整理参数
+    spuForm.spuImageList = spuImageFileList.value.map(item => {
+      return {
+        imgName: item.name, imgUrl: (item.response && item.response.data) || item.url,
+      } as SpuImage
+    })
+    spuForm.spuSaleAttrList = spuSaleAttrList.value
+    const result: StringResponseData = await reqAddOrUpdateSpuInfo(spuForm)
+    if (result.code === 200) {
+      emit('changeScene', 0, true)
+      // 再次发送请求
+      ElMessage.success(spuForm.id ? '修改商品成功！' : '添加商品成功！')
+    } else {
+      ElMessage.error(
+        (spuForm.id ? '修改商品失败！' : '添加商品失败！') +
+        (result.data || result.message),
+      )
+    }
+  } catch (error) {
+    ElMessage.error({
+      dangerouslyUseHTMLString: true,
+      message: (error as Error).message,
     })
   }
+}
+// 取消对SPU的操作
+const cancelSpu = () => {
+  emit('changeScene', 0)
 }
 
 defineExpose({ init })
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .sku-table {
   margin: 10px 0;
 }

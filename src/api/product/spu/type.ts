@@ -83,6 +83,8 @@ export interface SpuSaleAttr {
   spuSaleAttrValueList: SpuSaleAttrValueList
   createTime?: null
   updateTime?: null
+  edit?: boolean // non-backend-field
+  saleAttrValueName?: string // non-backend-field
 }
 
 // SPU已有的销售属性接口返回数据ts类型
