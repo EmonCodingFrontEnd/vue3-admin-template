@@ -125,7 +125,7 @@
                 placeholder="请输入属性值名称"
                 v-model.trim="row.valueName"
                 @blur="toReadMode(row, $index)"
-                @keyup.enter='inputRefArr[$index].blur()'
+                @keyup.enter="inputRefArr[$index].blur()"
                 :ref="(el) => (inputRefArr[$index] = el)"
               ></el-input>
               <div
