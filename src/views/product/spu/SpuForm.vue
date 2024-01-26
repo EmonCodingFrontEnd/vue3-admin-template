@@ -1,171 +1,171 @@
 <template>
   <el-form
-    ref='spuFormRef'
-    :model='spuForm'
-    :rules='spuRules'
-    style='width: 80%'
-    label-width='120px'
+    ref="spuFormRef"
+    :model="spuForm"
+    :rules="spuRules"
+    style="width: 80%"
+    label-width="120px"
   >
     <!--注意：该字段不需要回显，但为了能被resetFields()方法正确重置，必须要写上，且prop属性是对应字段名-->
-    <el-form-item prop='category3Id' v-show='false'></el-form-item>
-    <el-form-item label='SPU名称：' prop='spuName'>
+    <el-form-item prop="category3Id" v-show="false"></el-form-item>
+    <el-form-item label="SPU名称：" prop="spuName">
       <el-input
-        placeholder='请您输入SPU名称'
-        v-model='spuForm.spuName'
+        placeholder="请您输入SPU名称"
+        v-model="spuForm.spuName"
       ></el-input>
     </el-form-item>
-    <el-form-item label='SPU品牌：' prop='tmId'>
-      <el-select v-model='spuForm.tmId'>
+    <el-form-item label="SPU品牌：" prop="tmId">
+      <el-select v-model="spuForm.tmId">
         <el-option
-          :label='trademark.tmName'
-          :value='trademark.id'
-          v-for='trademark in allTradeMark'
-          :key='trademark.id'
+          :label="trademark.tmName"
+          :value="trademark.id"
+          v-for="trademark in allTradeMark"
+          :key="trademark.id"
         ></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label='SPU描述：'>
+    <el-form-item label="SPU描述：">
       <el-input
-        type='textarea'
-        placeholder='请你输入SPU描述'
-        rows='5'
-        v-model='spuForm.description'
+        type="textarea"
+        placeholder="请你输入SPU描述"
+        rows="5"
+        v-model="spuForm.description"
       ></el-input>
     </el-form-item>
-    <el-form-item label='SPU图片：' prop='spuImageList'>
+    <el-form-item label="SPU图片：" prop="spuImageList">
       <el-upload
-        ref='spuImageUploaderRef'
-        v-model:file-list='spuImageFileList'
-        :action='PICTURE_UPLOAD_URL'
-        list-type='picture-card'
-        :before-upload='beforeUpload'
-        :on-success='handleAvatarSuccess'
-        :on-preview='handlePreview'
-        :on-remove='handleRemove'
+        ref="spuImageUploaderRef"
+        v-model:file-list="spuImageFileList"
+        :action="PICTURE_UPLOAD_URL"
+        list-type="picture-card"
+        :before-upload="beforeUpload"
+        :on-success="handleAvatarSuccess"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
       >
         <el-icon>
           <Plus />
         </el-icon>
       </el-upload>
-      <el-dialog v-model='dialogVisible'>
+      <el-dialog v-model="dialogVisible">
         <img
           w-full
-          :src='dialogImageUrl'
-          alt='预览图片'
-          style='width: 100%; height: 100%'
+          :src="dialogImageUrl"
+          alt="预览图片"
+          style="width: 100%; height: 100%"
         />
       </el-dialog>
     </el-form-item>
-    <el-form-item label='SPU销售属性：' prop='spuSaleAttrList'>
+    <el-form-item label="SPU销售属性：" prop="spuSaleAttrList">
       <!--展示销售属性的下拉菜单-->
       <el-select
-        v-model='attrIdAndAttrName'
-        :placeholder='
+        v-model="attrIdAndAttrName"
+        :placeholder="
           unSelectSaleAttr.length
             ? `还有 ${unSelectSaleAttr.length} 未选择`
             : `无`
-        '
+        "
       >
         <el-option
-          :label='saleAttr.name'
-          :value='`${saleAttr.id}:${saleAttr.name}`'
-          v-for='saleAttr in unSelectSaleAttr'
-          :key='saleAttr.id'
+          :label="saleAttr.name"
+          :value="`${saleAttr.id}:${saleAttr.name}`"
+          v-for="saleAttr in unSelectSaleAttr"
+          :key="saleAttr.id"
         ></el-option>
       </el-select>
       <el-button
-        style='margin-left: 10px'
-        type='primary'
-        size='default'
-        icon='Plus'
-        :disabled='!attrIdAndAttrName'
-        @click='addSaleAttr'
+        style="margin-left: 10px"
+        type="primary"
+        size="default"
+        icon="Plus"
+        :disabled="!attrIdAndAttrName"
+        @click="addSaleAttr"
       >
         添加属性值
       </el-button>
       <!--table展示销售属性与属性值的地方-->
       <el-table
-        ref='skuTableRef'
-        class='sku-table'
-        :data='spuSaleAttrList'
+        ref="skuTableRef"
+        class="sku-table"
+        :data="spuSaleAttrList"
         border
         stripe
       >
         <el-table-column
-          label='序号'
-          type='index'
-          width='80px'
-          align='center'
+          label="序号"
+          type="index"
+          width="80px"
+          align="center"
           fixed
         ></el-table-column>
         <el-table-column
-          label='销售属性名称'
-          width='120px'
-          prop='saleAttrName'
+          label="销售属性名称"
+          width="120px"
+          prop="saleAttrName"
         ></el-table-column>
-        <el-table-column label='销售属性值'>
-          <template v-slot='{ row, $index }'>
+        <el-table-column label="销售属性值">
+          <template v-slot="{ row, $index }">
             <el-tag
-              v-for='(item, index) in row.spuSaleAttrValueList'
-              :key='item.id'
-              style='margin-left: 5px'
+              v-for="(item, index) in row.spuSaleAttrValueList"
+              :key="item.id"
+              style="margin-left: 5px"
               closable
-              @close='row.spuSaleAttrValueList.splice(index, 1)'
+              @close="row.spuSaleAttrValueList.splice(index, 1)"
             >
               {{ item.saleAttrValueName }}
             </el-tag>
             <el-input
-              v-if='row.edit'
-              placeholder='请你输入属性值'
-              size='small'
-              style='width: 100px; margin-left: 5px'
-              v-model.trim='row.saleAttrValueName'
-              @blur='toReadMode($event, row, $index)'
-              @keyup.enter='inputRefArr[$index].blur()'
-              :ref='(el) => (inputRefArr[$index] = el)'
+              v-if="row.edit"
+              placeholder="请你输入属性值"
+              size="small"
+              style="width: 100px; margin-left: 5px"
+              v-model.trim="row.saleAttrValueName"
+              @blur="toReadMode($event, row, $index)"
+              @keyup.enter="inputRefArr[$index].blur()"
+              :ref="(el) => (inputRefArr[$index] = el)"
             ></el-input>
             <el-button
               v-else
-              type='primary'
-              size='small'
-              icon='Plus'
-              style='margin-left: 5px'
-              @click='toEditMode(row, $index)'
+              type="primary"
+              size="small"
+              icon="Plus"
+              style="margin-left: 5px"
+              @click="toEditMode(row, $index)"
             ></el-button>
           </template>
         </el-table-column>
         <el-table-column
-          label='操作'
-          width='120px'
-          align='center'
-          fixed='right'
+          label="操作"
+          width="120px"
+          align="center"
+          fixed="right"
         >
-          <template v-slot='{ row, $index }'>
+          <template v-slot="{ row, $index }">
             <el-button
-              type='danger'
-              size='small'
-              icon='Delete'
-              title='删除'
-              @click='spuSaleAttrList.splice($index, 1)'
+              type="danger"
+              size="small"
+              icon="Delete"
+              title="删除"
+              @click="spuSaleAttrList.splice($index, 1)"
             ></el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type='primary' size='default' @click='saveSpu'>
-        <SvgIcon name='save' color='white' />
-        <span style='margin-left: 5px'>保存</span>
+      <el-button type="primary" size="default" @click="saveSpu">
+        <SvgIcon name="save" color="white" />
+        <span style="margin-left: 5px">保存</span>
       </el-button>
-      <el-button type='primary' size='default' @click='cancelSpu'>
-        <SvgIcon name='cancel' color='white' />
-        <span style='margin-left: 5px'>取消</span>
+      <el-button type="primary" size="default" @click="cancelSpu">
+        <SvgIcon name="cancel" color="white" />
+        <span style="margin-left: 5px">取消</span>
       </el-button>
     </el-form-item>
   </el-form>
 </template>
 
-<script setup lang='ts' name='SpuForm'>
+<script setup lang="ts" name="SpuForm">
 import { computed, markRaw, nextTick, reactive, ref } from 'vue'
 import type {
   FormInstance,
@@ -431,7 +431,7 @@ const init = async (spuInfo: SpuData) => {
   if (saleAttrResult.code === 200) {
     allSaleAttr.value = saleAttrResult.data
   }
-  
+
   if (spuId) {
     // 获取SPU的图片信息
     const spuImageResult: SpuHasImageResponseData = await reqSpuHasImageList(
@@ -478,7 +478,7 @@ const saveSpu = async () => {
     } else {
       ElMessage.error(
         (spuForm.id ? '修改商品失败！' : '添加商品失败！') +
-        (result.data || result.message),
+          (result.data || result.message),
       )
     }
   } catch (error) {
@@ -496,7 +496,7 @@ const cancelSpu = () => {
 defineExpose({ init })
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .sku-table {
   margin: 10px 0;
 }
