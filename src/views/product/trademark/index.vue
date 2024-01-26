@@ -105,7 +105,7 @@
         style="width: 80%"
         label-width="120px"
       >
-        <!--注意：这里id不需要回显，但为了能被resetFields()方法正确重置，必须要写上，且prop属性是对应字段名-->
+        <!--注意：该字段不需要回显，但为了能被resetFields()方法正确重置，必须要写上，且prop属性是对应字段名-->
         <el-form-item prop="id" v-show="false"></el-form-item>
         <el-form-item label="品牌名称：" prop="tmName">
           <el-input

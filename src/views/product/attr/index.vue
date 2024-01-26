@@ -242,7 +242,11 @@ const addAttr = () => {
   Object.assign(attrForm, cloneDeep(initAttrForm))
   // 重置到初始化的效果
   attrForm.categoryId = c3Id.value
-  // 清理表单验证信息，注意：这里使用resetFields()可行，但过重！使用nextTick也无效！
+  /*
+  清理表单验证信息
+  为什么使用setTimeout？点击修改=>返回商品列表=>点击新增，此时触发验证，显示了校验错误信息
+  注意：这里使用resetFields()可行，但过重！使用nextTick也无效！
+   */
   setTimeout(() => attrFormRef.value?.clearValidate(), 0)
 }
 // 修改属性的回调->进入修改页面
