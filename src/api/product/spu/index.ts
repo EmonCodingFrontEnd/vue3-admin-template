@@ -7,6 +7,7 @@ import type {
   AllTrademarkResponseData,
   AllSaleAttrResponseData,
   SpuData,
+  SkuData,
 } from '@/api/product/spu/type'
 import { StringResponseData } from '@/api/base'
 
@@ -29,6 +30,8 @@ enum API {
   // 图片上传地址
   PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 +
     '/admin/product/fileUpload',
+  // 追加一个新增的SKU地址
+  ADD_SKU_URL = '/admin/product/saveSkuInfo',
 }
 
 export const PICTURE_UPLOAD_URL: string = API.PICTURE_UPLOAD_URL.toString()
@@ -67,3 +70,6 @@ export const reqAddOrUpdateSpuInfo = (data: SpuData) => {
     return request8209.post<any, StringResponseData>(API.ADD_SPU_URL, data)
   }
 }
+// 追加一个新增的SKU的方法
+export const reqAddSkuInfo = (data: SkuData) =>
+  request8209.post<any, StringResponseData>(API.ADD_SKU_URL, data)

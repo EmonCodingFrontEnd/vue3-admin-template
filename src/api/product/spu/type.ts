@@ -52,6 +52,7 @@ export interface SpuImage {
   updateTime?: string
   name: string // non-backend-field
   url: string // non-backend-field
+  isDefault: string // non-backend-field
 }
 
 // 已有的SPU的照片墙数据的类型
@@ -85,9 +86,33 @@ export interface SpuSaleAttr {
   updateTime?: null
   edit?: boolean // non-backend-field
   saleAttrValueName?: string // non-backend-field
+  saleAttrIdAndValueId?: string // non-backend-field
 }
 
 // SPU已有的销售属性接口返回数据ts类型
 export interface SpuHasSaleAttrResponseData extends ResponseData {
   data: SpuSaleAttr[]
+}
+
+export interface SkuAttrValue {
+  attrId: number // 平台属性的ID
+  valueId: string // 平台属性值的ID
+}
+
+export interface SkuSaleAttrValue {
+  saleAttrId: string // 销售属性ID
+  saleAttrValueId: string // 销售属性值的ID
+}
+
+export interface SkuData {
+  category3Id: number // 三级分类ID
+  spuId: number // 已有的SPU的ID
+  tmId: number // SPU品牌的ID
+  skuName: string // SKU名称
+  price: number // SKU价格
+  weight: string // SKU重量
+  skuDesc: string // SKU的描述
+  skuAttrValueList: SkuAttrValue[] // 平台属性的收集
+  skuSaleAttrValueList: SkuSaleAttrValue[] // 销售属性的收集
+  skuDefaultImg: string // SKU图片地址
 }

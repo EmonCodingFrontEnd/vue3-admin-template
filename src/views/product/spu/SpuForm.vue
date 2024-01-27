@@ -243,14 +243,14 @@ const initSpuForm = markRaw({
 // 深度拷贝后使用，避免污染初始的属性
 const spuForm = reactive<SpuData>(cloneDeep(initSpuForm))
 const validatorSpuImageList = (rule: any, value: any, callback: any) => {
-  if (spuImageFileList.value.length > 0) {
+  if (spuForm.spuImageList?.length > 0) {
     callback()
   } else {
     callback(new Error('商品图片至少一张！'))
   }
 }
 const validatorSpuSaleAttrList = (rule: any, value: any, callback: any) => {
-  if (spuSaleAttrList.value.length > 0) {
+  if (spuForm.spuSaleAttrList?.length > 0) {
     callback()
   } else {
     callback(new Error('商品属性至少一个！'))
@@ -458,10 +458,6 @@ const init = async (spuInfo: SpuData) => {
 // 保存对SPU的操作
 const saveSpu = async () => {
   try {
-    // 保证全部表单项校验通过再发请求
-    const { validateCallback } = useElFormHelper()
-    await spuFormRef.value?.validate(validateCallback)
-
     // 整理参数
     spuForm.spuImageList = spuImageFileList.value.map((item) => {
       return {
@@ -470,6 +466,11 @@ const saveSpu = async () => {
       } as SpuImage
     })
     spuForm.spuSaleAttrList = spuSaleAttrList.value
+
+    // 保证全部表单项校验通过再发请求
+    const { validateCallback } = useElFormHelper()
+    await spuFormRef.value?.validate(validateCallback)
+
     const result: StringResponseData = await reqAddOrUpdateSpuInfo(spuForm)
     if (result.code === 200) {
       emit('changeScene', 0, true)
@@ -492,7 +493,7 @@ const saveSpu = async () => {
 const cancelSpu = () => {
   emit('changeScene', 0)
 }
-
+// ==================================================华丽的分割线==================================================
 defineExpose({ init })
 </script>
 

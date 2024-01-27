@@ -54,6 +54,7 @@
                 title="添加SKU"
                 plain
                 round
+                @click="addSku(row)"
               ></el-button>
               <el-button
                 type="warning"
@@ -73,9 +74,10 @@
                 round
               ></el-button>
               <el-popconfirm
-                :title="`确定要删除属性 ${row.attrName} 吗？`"
+                :title="`确定要删除属性 ${row.spuName} 吗？`"
                 width="280px"
                 icon="Delete"
+                @confirm="deleteSpu"
               >
                 <template #reference>
                   <el-button
@@ -136,7 +138,7 @@ import SkuForm from '@/views/product/spu/SkuForm.vue'
 // 引用分类组件
 const categoryRef = ref()
 const categoryStore = useCategoryStore()
-const { c3Id } = storeToRefs(categoryStore)
+const { c1Id, c2Id, c3Id } = storeToRefs(categoryStore)
 // 全局禁用属性操作：若分类信息缺失，禁用操作
 const disableApuOpeator = computed(() => {
   return !c3Id.value
@@ -179,10 +181,22 @@ watch(
   scene,
   () =>
     nextTick(() => {
-      categoryRef.value.setDisabled(scene.value === 1)
+      categoryRef.value.setDisabled(scene.value === 1 || scene.value === 2)
     }),
   { immediate: true },
 )
+
+// 对SpuForm表单的引用
+const spuFormRef = ref()
+// 对SkuForm表单的引用
+const skuFormRef = ref()
+// 子组件SpuForm绑定自定义事件：目前是让自组件通知父组件切换场景值为0
+const changeScene = (sceneValue: number, refreshSpuList: boolean = false) => {
+  scene.value = sceneValue
+  if (refreshSpuList) {
+    getSpu()
+  }
+}
 
 // 添加新的SPU按钮的回调
 const addSpu = () => {
@@ -196,17 +210,22 @@ const updateSpu = (row: SpuData) => {
   // 调用子组件实例的初始化方法
   spuFormRef.value.init(row)
 }
+// 删除SPU按钮的回调
+const deleteSpu = (row: SpuData) => {
+  alert('删除删除！')
+}
 
-// 对SpuForm表单的引用
-const spuFormRef = ref()
-// 对SkuForm表单的引用
-const skuFormRef = ref()
-// 子组件SpuForm绑定自定义事件：目前是让自组件通知父组件切换场景值为0
-const changeScene = (sceneValue: number, refreshSpuList: boolean = false) => {
-  scene.value = sceneValue
-  if (refreshSpuList) {
-    getSpu()
-  }
+// 添加SKU按钮的回调
+const addSku = (row: SpuData) => {
+  scene.value = 2
+  skuFormRef.value.init(
+    {
+      category1Id: c1Id.value,
+      category2Id: c2Id.value,
+      category3Id: c3Id.value,
+    },
+    row,
+  )
 }
 </script>
 

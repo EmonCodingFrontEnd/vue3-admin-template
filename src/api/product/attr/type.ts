@@ -30,6 +30,7 @@ export interface Attr {
   categoryId: number | undefined // 属性归属的分类id
   categoryLevel: number // 属性归属的分类级别
   attrValueList: AttrValueList
+  attrIdAndValueId?: string // non-backend-field
 }
 
 // 存储每一个属性的数组类型
