@@ -3,7 +3,7 @@
     ref="skuFormRef"
     :model="skuForm"
     :rules="skuRules"
-    label-width="130px"
+    label-width="135px"
   >
     <el-form-item label="SKU名称：" prop="skuName">
       <el-input placeholder="SKU名称" v-model="skuForm.skuName"></el-input>
@@ -113,9 +113,9 @@
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="default">
+      <el-button type="primary" size="default" @click="saveSku">
         <SvgIcon name="save" color="white" />
-        <span style="margin-left: 5px" @click="saveSku">保存</span>
+        <span style="margin-left: 5px">保存</span>
       </el-button>
       <el-button type="primary" size="default" @click="cancelSku">
         <SvgIcon name="cancel" color="white" />

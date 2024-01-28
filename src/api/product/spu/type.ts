@@ -116,3 +116,8 @@ export interface SkuData {
   skuSaleAttrValueList: SkuSaleAttrValue[] // 销售属性的收集
   skuDefaultImg: string // SKU图片地址
 }
+
+// 获取SKU数据接口的ts类型
+export interface SkuInfoData extends ResponseData {
+  data: SkuData[]
+}

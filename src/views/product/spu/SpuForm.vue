@@ -243,14 +243,20 @@ const initSpuForm = markRaw({
 // 深度拷贝后使用，避免污染初始的属性
 const spuForm = reactive<SpuData>(cloneDeep(initSpuForm))
 const validatorSpuImageList = (rule: any, value: any, callback: any) => {
-  if (spuForm.spuImageList?.length > 0) {
+  if (spuImageFileList.value?.length > 0) {
     callback()
   } else {
     callback(new Error('商品图片至少一张！'))
   }
 }
 const validatorSpuSaleAttrList = (rule: any, value: any, callback: any) => {
-  if (spuForm.spuSaleAttrList?.length > 0) {
+  let hasValue = spuSaleAttrList.value?.length > 0
+  if (hasValue) {
+    hasValue = spuSaleAttrList.value?.every(
+      (e) => e.spuSaleAttrValueList.length > 0,
+    )
+  }
+  if (hasValue) {
     callback()
   } else {
     callback(new Error('商品属性至少一个！'))
@@ -282,7 +288,7 @@ const spuRules = reactive<FormRules<SpuData>>({
     },
   ],
   spuImageList: [{ trigger: 'change', validator: validatorSpuImageList }],
-  spuSaleAttrList: [{ trigger: 'change', validator: validatorSpuSaleAttrList }],
+  spuSaleAttrList: [{ trigger: 'blur', validator: validatorSpuSaleAttrList }],
 })
 
 // 存储全部品牌的数据
@@ -390,6 +396,7 @@ const toReadMode = ($event: Event, row: SpuSaleAttr, $index: number) => {
   // 收集后，删除属性值名称
   delete row.saleAttrValueName
   row.edit = false
+  spuFormRef.value?.clearValidate('spuSaleAttrList') // 添加了销售属性后清除该字段的校验信息
 }
 
 // 进入编辑模式
@@ -458,6 +465,10 @@ const init = async (spuInfo: SpuData) => {
 // 保存对SPU的操作
 const saveSpu = async () => {
   try {
+    // 保证全部表单项校验通过再发请求
+    const { validateCallback } = useElFormHelper()
+    await spuFormRef.value?.validate(validateCallback)
+
     // 整理参数
     spuForm.spuImageList = spuImageFileList.value.map((item) => {
       return {
@@ -466,10 +477,6 @@ const saveSpu = async () => {
       } as SpuImage
     })
     spuForm.spuSaleAttrList = spuSaleAttrList.value
-
-    // 保证全部表单项校验通过再发请求
-    const { validateCallback } = useElFormHelper()
-    await spuFormRef.value?.validate(validateCallback)
 
     const result: StringResponseData = await reqAddOrUpdateSpuInfo(spuForm)
     if (result.code === 200) {

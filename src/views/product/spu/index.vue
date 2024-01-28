@@ -6,7 +6,7 @@
         <el-button
           type="primary"
           icon="Plus"
-          :disabled="disableApuOpeator"
+          :disabled="disableSpuOpeator"
           @click="addSpu"
         >
           添加Spu
@@ -50,7 +50,7 @@
                 type="primary"
                 size="small"
                 icon="Plus"
-                :disabled="disableApuOpeator"
+                :disabled="disableSpuOpeator"
                 title="添加SKU"
                 plain
                 round
@@ -60,7 +60,7 @@
                 type="warning"
                 size="small"
                 icon="Edit"
-                :disabled="disableApuOpeator"
+                :disabled="disableSpuOpeator"
                 title="修改SPU"
                 @click="updateSpu(row)"
               ></el-button>
@@ -68,23 +68,24 @@
                 type="primary"
                 size="small"
                 icon="View"
-                :disabled="disableApuOpeator"
+                :disabled="disableSpuOpeator"
                 title="查看SKU列表"
                 plain
                 round
+                @click="viewSku(row)"
               ></el-button>
               <el-popconfirm
                 :title="`确定要删除属性 ${row.spuName} 吗？`"
                 width="280px"
                 icon="Delete"
-                @confirm="deleteSpu"
+                @confirm="deleteSpu(row)"
               >
                 <template #reference>
                   <el-button
                     type="danger"
                     size="small"
                     icon="Delete"
-                    :disabled="disableApuOpeator"
+                    :disabled="disableSpuOpeator"
                     title="删除SPU"
                   ></el-button>
                 </template>
@@ -101,7 +102,7 @@
           :total="total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :disabled="disableApuOpeator"
+          :disabled="disableSpuOpeator"
         />
       </div>
       <!--添加SPU|修改SPU子组件-->
@@ -116,6 +117,26 @@
         ref="skuFormRef"
         @changeScene="changeScene"
       ></SkuForm>
+      <!--dialog对话框-->
+      <el-dialog v-model="skuDialogVisible" title="SKU列表">
+        <el-table :data="skuArr" border stripe>
+          <el-table-column
+            label="序号"
+            type="index"
+            width="80px"
+            align="center"
+            fixed
+          ></el-table-column>
+          <el-table-column label="SKU名字" prop="skuName"></el-table-column>
+          <el-table-column label="SKU价格" prop="price"></el-table-column>
+          <el-table-column label="SKU重量" prop="weight"></el-table-column>
+          <el-table-column label="SKU图片">
+            <template v-slot="{ row, $index }">
+              <img :src="row.skuDefaultImg" style="width: 100px" />
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -128,19 +149,22 @@ import type {
   SpuData,
   SpuDataList,
   HasSpuResponseData,
+  SkuInfoData,
+  SkuData,
 } from '@/api/product/spu/type'
-import { reqHasSpu } from '@/api/product/spu'
+import { reqHasSpu, reqSkuInfo, reqDeleteSpuInfo } from '@/api/product/spu'
 import useElTableHelper from '@/hooks/useElTableHelper'
 // 引入子组件
 import SpuForm from '@/views/product/spu/SpuForm.vue'
 import SkuForm from '@/views/product/spu/SkuForm.vue'
+import { ElMessage } from 'element-plus'
 
 // 引用分类组件
 const categoryRef = ref()
 const categoryStore = useCategoryStore()
 const { c1Id, c2Id, c3Id } = storeToRefs(categoryStore)
 // 全局禁用属性操作：若分类信息缺失，禁用操作
-const disableApuOpeator = computed(() => {
+const disableSpuOpeator = computed(() => {
   return !c3Id.value
 })
 
@@ -211,8 +235,19 @@ const updateSpu = (row: SpuData) => {
   spuFormRef.value.init(row)
 }
 // 删除SPU按钮的回调
-const deleteSpu = (row: SpuData) => {
-  alert('删除删除！')
+const deleteSpu = async (row: SpuData) => {
+  try {
+    const result = await reqDeleteSpuInfo(row.id as number)
+    if (result.code === 200) {
+      pageNo.value = 1
+      await getSpu()
+      ElMessage.success('删除SPU成功！')
+    } else {
+      ElMessage.success('删除SPU失败！')
+    }
+  } catch (error) {
+    ElMessage.error((error as Error).message)
+  }
 }
 
 // 添加SKU按钮的回调
@@ -226,6 +261,24 @@ const addSku = (row: SpuData) => {
     },
     row,
   )
+}
+
+const skuDialogVisible = ref<boolean>(false)
+// 存储某个商品的全部SKU数据
+const skuArr = ref<SkuData[]>([])
+// 查看SKU按钮的回调
+const viewSku = async (row: SpuData) => {
+  try {
+    const result: SkuInfoData = await reqSkuInfo(row.id as number)
+    if (result.code === 200) {
+      skuArr.value = result.data
+      skuDialogVisible.value = true
+    } else {
+      ElMessage.success('查看SKU列表失败！！')
+    }
+  } catch (error) {
+    ElMessage.error((error as Error).message)
+  }
 }
 </script>
 

@@ -10,6 +10,7 @@ import type {
   SkuData,
 } from '@/api/product/spu/type'
 import { StringResponseData } from '@/api/base'
+import { SkuInfoData } from '@/api/product/spu/type'
 
 // SPU管理模块接口地址
 enum API {
@@ -32,6 +33,10 @@ enum API {
     '/admin/product/fileUpload',
   // 追加一个新增的SKU地址
   ADD_SKU_URL = '/admin/product/saveSkuInfo',
+  // 查看某一个已有的SPU下全部的售卖商品
+  SKU_INFO_URL = '/admin/product/findBySpuId/',
+  // 删除已有的SPU
+  DELETE_SPU_URL = '/admin/product/deleteSpu/',
 }
 
 export const PICTURE_UPLOAD_URL: string = API.PICTURE_UPLOAD_URL.toString()
@@ -73,3 +78,9 @@ export const reqAddOrUpdateSpuInfo = (data: SpuData) => {
 // 追加一个新增的SKU的方法
 export const reqAddSkuInfo = (data: SkuData) =>
   request8209.post<any, StringResponseData>(API.ADD_SKU_URL, data)
+// 查看某一个已有的SPU下全部的售卖商品的方法
+export const reqSkuInfo = (spuId: number) =>
+  request8209.get<any, SkuInfoData>(API.SKU_INFO_URL + spuId)
+// 删除已有的SPU的方法
+export const reqDeleteSpuInfo = (spuId: number) =>
+  request8209.delete<any, StringResponseData>(API.DELETE_SPU_URL + spuId)

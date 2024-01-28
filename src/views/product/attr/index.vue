@@ -254,7 +254,7 @@ const updateAttr = (row: Attr) => {
   scene.value = 1
   Object.assign(attrForm, cloneDeep(row))
 }
-// 修改属性的回调->进入修改页面
+// 删除属性的回调->进入修改页面
 const removeAttr = async (event: MouseEvent, row: Attr) => {
   try {
     const result: StringResponseData = await reqRemoveAttrInfo(row.id as number)
