@@ -138,7 +138,9 @@
               :key="saleAttrValue.id"
               style="margin: 0 10px 10px 0"
             >
-              {{ saleAttrValue.saleAttrName }}-{{ saleAttrValue.saleAttrValueName }}
+              {{ saleAttrValue.saleAttrName }}-{{
+                saleAttrValue.saleAttrValueName
+              }}
             </el-tag>
           </el-col>
         </el-row>
