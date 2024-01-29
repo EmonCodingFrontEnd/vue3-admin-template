@@ -4,7 +4,6 @@ import type { ResponseData } from '@/api/base'
 import type {
   Trademark,
   TrademarkResponseData,
-  AllTrademarkResponseData,
 } from '@/api/product/trademark/type'
 
 // 品牌管理模块接口地址

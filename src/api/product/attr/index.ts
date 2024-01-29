@@ -1,6 +1,6 @@
 // 这里书写属性相关的API文件
 import request8209 from '@/utils/request8209'
-import { StringResponseData } from '@/api/base'
+import type { StringResponseData } from '@/api/base'
 import type {
   CategoryResponseData,
   AttrResponseData,

@@ -9,8 +9,8 @@ import type {
   SpuData,
   SkuData,
 } from '@/api/product/spu/type'
-import { StringResponseData } from '@/api/base'
-import { SkuInfoData } from '@/api/product/spu/type'
+import type { StringResponseData } from '@/api/base'
+import type { SkuInfoData } from '@/api/product/spu/type'
 
 // SPU管理模块接口地址
 enum API {

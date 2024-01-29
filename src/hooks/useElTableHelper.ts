@@ -1,12 +1,13 @@
-import * as debounce from 'lodash/debounce'
 import { onBeforeUnmount, onMounted, ref, nextTick } from 'vue'
+import type { ElTable } from 'element-plus'
+import * as debounce from 'lodash/debounce'
 
 export default function (
   bottomOffset = 50,
   reqData: () => void,
   limit: number = 3,
 ) {
-  const tableRef = ref()
+  const tableRef = ref<InstanceType<typeof ElTable>>()
   const tableHeight = ref<number>()
 
   // 当前页码
