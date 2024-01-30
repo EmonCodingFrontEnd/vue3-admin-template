@@ -69,17 +69,16 @@
             icon="InfoFilled"
             @click="viewSku(row)"
           ></el-button>
-          <el-button type="danger" size="small" icon="Delete"></el-button>
-          <!--<el-popconfirm-->
-          <!--  :title="`确定要删除品牌 ${row.tmName} 吗？`"-->
-          <!--  width="280px"-->
-          <!--  icon="Delete"-->
-          <!--  @confirm="removeTrademark($event, row)"-->
-          <!--&gt;-->
-          <!--  <template #reference>-->
-          <!--    <el-button type="danger" size="small" icon="Delete"></el-button>-->
-          <!--  </template>-->
-          <!--</el-popconfirm>-->
+          <el-popconfirm
+            :title="`确定要删除商品 ${row.skuName} 吗？`"
+            width="280px"
+            icon="Delete"
+            @confirm="deleteSku(row)"
+          >
+            <template #reference>
+              <el-button type="danger" size="small" icon="Delete"></el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -171,6 +170,7 @@ import {
   reqOnSaleSku,
   reqCancelSaleSku,
   reqSkuInfo,
+  reqDeleteSku,
 } from '@/api/product/sku'
 import useElTableHelper from '@/hooks/useElTableHelper'
 import { StringResponseData } from '@/api/base'
@@ -226,7 +226,6 @@ const updateSale = async (row: SkuData) => {
 const updateSku = async (row: SkuData) => {
   ElMessage.info('敬请期待！')
 }
-
 // 阅览SKU
 const viewSku = async (row: SkuData) => {
   const { id: skuId } = row
@@ -234,6 +233,20 @@ const viewSku = async (row: SkuData) => {
   if (result.code === 200) {
     skuInfo.value = result.data
     drawerVisible.value = true
+  } else {
+    ElMessage.error(result.data || result.message)
+  }
+}
+// 删除SKU
+const deleteSku = async (row: SkuData) => {
+  const { id: skuId } = row
+  const result = await reqDeleteSku(skuId as number)
+  if (result.code === 200) {
+    ElMessage.success('删除成功！')
+    pageNo.value = 1
+    await getSkuList()
+  } else {
+    ElMessage.error(result.data || result.message)
   }
 }
 </script>
