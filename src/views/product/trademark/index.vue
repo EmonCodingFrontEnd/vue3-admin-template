@@ -263,7 +263,7 @@ const trademarkRules = reactive<FormRules<Trademark>>({
    * min 文本长度至少多少位
    * max 文本长度至多多少位
    * message 错误的提示信息
-   * trigger 触发校验表单的时机， change->文本发生变化触发校验；blur->失去焦点触发校验
+   * trigger 触发校验表单的时机， change->文本发生变化触发校验；blur->失去焦点触发校验；备注：优先使用blue
    */
   tmName: [
     {

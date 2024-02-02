@@ -421,7 +421,7 @@ const init = async (spuInfo: SpuData) => {
     Object.assign(spuForm, cloneDeep(initSpuForm), spuInfo)
     attrIdAndAttrName.value = ''
     /*
-    清理表单验证信息
+    清理表单验证信息：假若表单验证使用了change而不是blur
     为什么使用setTimeout？点击修改=>返回商品列表=>点击新增，此时触发验证，显示了校验错误信息
     注意：这里使用resetFields()可行，但过重！使用nextTick也无效！
      */

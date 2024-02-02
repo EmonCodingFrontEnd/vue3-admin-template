@@ -260,7 +260,7 @@ const changeDefaultImg = (row: SpuImage) => {
   skuForm.skuDefaultImg = <string>row.imgUrl
   // 清除图片的校验错误信息
   /*
-  清理表单验证信息
+  清理表单验证信息：假若表单验证使用了change而不是blur
   为什么使用setTimeout？点击修改=>返回商品列表=>点击新增，此时触发验证，显示了校验错误信息
   注意：这里使用resetFields()可行，但过重！使用nextTick也无效！
   */
@@ -280,7 +280,7 @@ const init = async (
   skuForm.tmId = tmId
 
   /*
-  清理表单验证信息
+  清理表单验证信息：假若表单验证使用了change而不是blur
   为什么使用setTimeout？点击修改=>返回商品列表=>点击新增，此时触发验证，显示了校验错误信息
   注意：这里使用resetFields()可行，但过重！使用nextTick也无效！
   */
