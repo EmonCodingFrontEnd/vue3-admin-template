@@ -70,7 +70,8 @@ let loginFormRef = ref<FormInstance>()
 // 收集账号与密码的数据
 let loginForm = reactive<LoginFormData>({
   username: 'admin' /* password: '111111', // 本地mock用户密码*/,
-  password: 'atguigu123',
+  // password: 'atguigu123',
+  password: '111111',
 })
 /**
  * 自定义校验规则函数

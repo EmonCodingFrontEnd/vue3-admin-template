@@ -19,7 +19,7 @@
           <el-button type="primary" size="default" @click="search">
             搜索
           </el-button>
-          <el-button type="primary" size="default" @click="reset">
+          <el-button type="default" size="default" @click="reset">
             重置
           </el-button>
         </el-form-item>
@@ -27,7 +27,7 @@
     </el-card>
     <el-card style="margin: 10px 0px">
       <el-button type="primary" size="default" icon="Plus" @click="addUser">
-        添加用户
+        操作用户
       </el-button>
       <el-button
         type="danger"
@@ -252,7 +252,8 @@
 
 <script setup lang="ts" name="User">
 import { markRaw, reactive, ref, watch } from 'vue'
-import { ElMessage, FormInstance, FormRules } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import type {
   AllRole,
   RoleData,
@@ -542,12 +543,12 @@ const doAssignRole = async () => {
   align-items: center;
 }
 
-.user-form {
-  width: 90%;
-}
-
 .user-table {
   margin: 10px 0px;
+}
+
+.user-form {
+  width: 90%;
 }
 
 // 深度穿透，配置角色列表的表单项布局
