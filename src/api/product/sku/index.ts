@@ -1,7 +1,7 @@
 // SKU模块接口管理
 import request8209 from '@/utils/request8209'
-import type { SkuResponseData, SkuInfoData } from '@/api/product/sku/type'
 import type { StringResponseData } from '@/api/base'
+import type { SkuResponseData, SkuInfoData } from '@/api/product/sku/type'
 
 // 枚举地址
 enum API {

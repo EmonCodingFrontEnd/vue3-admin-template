@@ -255,7 +255,7 @@ const {
 } = useElTableHelper(83, getRoleList, 10)
 
 // ==================================================华丽的分割线==================================================
-// 抽屉是否显示
+// 对话框是否显示
 const roleDialogVisible = ref<boolean>(false)
 // 对Form表单的引用
 const roleFormRef = ref<FormInstance>()
@@ -286,7 +286,8 @@ const addRole = () => {
 // 打开更新角色窗口
 const updateRole = (row: User) => {
   roleDialogVisible.value = true
-  Object.assign(roleForm, row) // 赋值表单
+  Object.assign(roleForm, cloneDeep(row)) // 赋值表单
+  roleFormRef.value?.clearValidate()
 }
 
 // 添加或更新角色信息

@@ -407,6 +407,7 @@ const toEditMode = (row: SpuSaleAttr, $index: number) => {
 // 对Table表格的引用
 const skuTableRef = ref()
 // ==================================================华丽的分割线==================================================
+// [lm's ps]: 20240211 21:43 表单重置方式二
 // 初始化方法
 const init = async (spuInfo: SpuData) => {
   const { id: spuId } = spuInfo

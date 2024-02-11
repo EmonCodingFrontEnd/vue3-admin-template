@@ -1,5 +1,6 @@
 // 这里书写SPU相关的API文件
 import request8209 from '@/utils/request8209'
+import type { StringResponseData } from '@/api/base'
 import type {
   HasSpuResponseData,
   SpuHasImageResponseData,
@@ -8,9 +9,8 @@ import type {
   AllSaleAttrResponseData,
   SpuData,
   SkuData,
+  SkuInfoData,
 } from '@/api/product/spu/type'
-import type { StringResponseData } from '@/api/base'
-import type { SkuInfoData } from '@/api/product/spu/type'
 
 // SPU管理模块接口地址
 enum API {

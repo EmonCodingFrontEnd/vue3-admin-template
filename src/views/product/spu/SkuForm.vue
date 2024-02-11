@@ -247,6 +247,7 @@ const spuSaleAttrList = ref<SpuSaleAttr[]>([])
 const handleSelectionChange = (selection: SpuImage[]) => {
   // 不需要干啥
 }
+// [lm's ps]: 20240211 21:43 表单重置方式二
 // 设置默认图片的方法回调
 const changeDefaultImg = (row: SpuImage) => {
   spuImageFileList.value.forEach((e) => (e.isDefault = '0'))

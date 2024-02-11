@@ -395,6 +395,7 @@ watch(
   },
   { immediate: true },
 )
+// [lm's ps]: 20240211 21:52 表单重置方式三
 // 打开添加用户窗口
 const addUser = () => {
   userDrawerVisible.value = true
@@ -405,6 +406,7 @@ const addUser = () => {
 const updateUser = (row: User) => {
   userDrawerVisible.value = true
   Object.assign(userForm, row) // 赋值表单
+  userFormRef.value?.clearValidate()
 }
 // 添加或更新用户信息
 const saveOrUpdateUser = async () => {

@@ -1,12 +1,12 @@
 // 角色管理模块的接口
 import request8212 from '@/utils/request8212'
-import { StringResponseData } from '@/api/base'
+import type { StringResponseData } from '@/api/base'
 import type {
   Role,
   RoleResponseData,
   MenuResponseData,
+  RolePermission,
 } from '@/api/acl/role/type'
-import { RolePermission } from '@/api/acl/role/type'
 
 // 枚举地址
 enum API {

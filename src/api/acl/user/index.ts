@@ -1,12 +1,12 @@
 // 用户管理模块的接口
 import request8212 from '@/utils/request8212'
+import type { StringResponseData } from '@/api/base'
 import type {
   User,
   UserResponseData,
   AllRoleResponseData,
+  SetRoleData,
 } from '@/api/acl/user/type'
-import type { StringResponseData } from '@/api/base'
-import { SetRoleData } from '@/api/acl/user/type'
 
 // 枚举地址
 enum API {

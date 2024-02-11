@@ -104,6 +104,7 @@ const { fold } = storeToRefs(layoutSettingStore)
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;
+    background: white;
 
     &.fold {
       width: calc(100vw - $base-menu-min-width);

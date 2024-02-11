@@ -37,7 +37,7 @@
           fixed
         ></el-table-column>
         <el-table-column label="品牌名称" prop="tmName"></el-table-column>
-        <el-table-column label="品牌logo" prop="tmName">
+        <el-table-column label="品牌logo" prop="logoUrl">
           <template v-slot="{ row, $index }">
             <img
               :src="row.logoUrl"
@@ -207,7 +207,7 @@ const {
 } = useElTableHelper(83, getHasTrademark)
 
 // ==================================================华丽的分割线==================================================
-
+// [lm's ps]: 20240211 21:42 表单重置方式一
 const dialogVisible = ref<boolean>(false)
 // 操作类型
 const operType = ref('')
@@ -228,6 +228,7 @@ const updateTrademark = (row: Trademark) => {
     avatarFileList.value = [
       { name: trademarkForm.tmName, url: trademarkForm.logoUrl },
     ] // 赋值文件
+    trademarkFormRef.value?.clearValidate('logoUrl')
   })
 }
 const removeTrademark = async (event: MouseEvent, row: Trademark) => {

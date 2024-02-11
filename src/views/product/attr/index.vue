@@ -235,6 +235,7 @@ watch(
   { immediate: true },
 )
 
+// [lm's ps]: 20240211 21:44 表单重置方式二
 // 添加属性的回调->进入添加页面
 const addAttr = () => {
   scene.value = 1
