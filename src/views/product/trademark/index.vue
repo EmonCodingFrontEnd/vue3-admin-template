@@ -165,6 +165,7 @@ import type {
   UploadUserFile,
 } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import * as cloneDeep from 'lodash/cloneDeep'
 import {
   PICTURE_UPLOAD_URL,
   reqAddOrUpdateTrademark,
@@ -224,7 +225,7 @@ const updateTrademark = (row: Trademark) => {
   dialogVisible.value = true
   // 注意：这里使用nextTick的原因是，确保表单项初始化的值是空，进而能保证表单重置 resetFields() 时具有清空的效果
   nextTick(() => {
-    Object.assign(trademarkForm, row) // 赋值表单
+    Object.assign(trademarkForm, cloneDeep(row)) // 赋值表单
     avatarFileList.value = [
       { name: trademarkForm.tmName, url: trademarkForm.logoUrl },
     ] // 赋值文件

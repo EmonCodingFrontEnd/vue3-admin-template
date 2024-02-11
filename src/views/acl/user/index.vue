@@ -405,7 +405,7 @@ const addUser = () => {
 // 打开更新用户窗口
 const updateUser = (row: User) => {
   userDrawerVisible.value = true
-  Object.assign(userForm, row) // 赋值表单
+  Object.assign(userForm, cloneDeep(row)) // 赋值表单
   userFormRef.value?.clearValidate()
 }
 // 添加或更新用户信息
@@ -503,7 +503,7 @@ const handleCheckedRolesChange = (value: AllRole) => {
 // 分配角色
 const assignRole = async (row: User) => {
   roleDrawerVisible.value = true
-  Object.assign(roleForm, row) // 赋值表单
+  Object.assign(roleForm, cloneDeep(row)) // 赋值表单
   // 获取全部职位以及当前用户拥有的职位信息
   const result = await reqAllRole(row.id as number)
   if (result.code === 200) {
