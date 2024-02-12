@@ -1,73 +1,81 @@
 <template>
   <el-button
-    size="small"
-    icon="Refresh"
+    size='small'
+    icon='Refresh'
     circle
-    type="success"
-    @click="updateRefresh"
+    type='success'
+    @click='updateRefresh'
   ></el-button>
 
   <el-button
-    size="small"
-    icon="FullScreen"
+    size='small'
+    icon='FullScreen'
     circle
-    type="warning"
-    @click="fullScreen"
+    type='warning'
+    @click='fullScreen'
   ></el-button>
 
   <el-popover
-    placement="bottom-end"
-    title="主题设置"
-    :width="300"
-    trigger="hover"
+    placement='bottom'
+    title='主题设置'
+    :width='300'
+    :visible='settingVisible'
   >
-    <el-form>
-      <el-form-item label="主题颜色：">
+    <el-form class='setting-form'>
+      <el-form-item label='主题颜色：'>
         <el-color-picker
-          v-model="color"
-          size="large"
+          v-model='color'
           show-alpha
-          :predefine="predefineColors"
+          :predefine='predefineColors'
+          @change='changeColor'
         />
       </el-form-item>
-      <el-form-item label="暗黑模式：">
+      <el-form-item label='暗黑模式：'>
         <el-switch
-          v-model="dark"
+          v-model='dark'
           inline-prompt
-          size="large"
-          style="--el-switch-on-color: #303133; --el-switch-off-color: #e6e8eb"
-          active-icon="MoonNight"
-          inactive-icon="Sunny"
-          @change="changeDark"
+          style='--el-switch-on-color: #303133; --el-switch-off-color: #e6e8eb'
+          active-icon='MoonNight'
+          inactive-icon='Sunny'
+          @change='changeDark'
         />
+      </el-form-item>
+      <el-form-item>
+        <el-button @click='settingVisible = false'>关闭</el-button>
       </el-form-item>
     </el-form>
     <template #reference>
-      <el-button size="small" icon="Setting" circle type="primary"></el-button>
+      <el-button
+        size='small'
+        icon='Setting'
+        circle
+        type='primary'
+        @click='settingVisible = true'
+      ></el-button>
     </template>
   </el-popover>
 
   <img
-    :src="userStore.avatar"
-    style="width: 24px; height: 24px; margin: 0px 10px; border-radius: 50%"
+    :src='userStore.avatar'
+    style='width: 24px; height: 24px; margin: 0px 10px; border-radius: 50%'
   />
   <!-- 下拉菜单 -->
   <el-dropdown>
-    <span class="el-dropdown-link">
+    <span class='el-dropdown-link'>
       {{ userStore.username }}
-      <el-icon class="el-icon--right">
+      <el-icon class='el-icon--right'>
         <arrow-down />
       </el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+        <el-dropdown-item @click='logout'>退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
 
-<script setup lang="ts" name="Setting">
+<script setup lang='ts' name='Setting'>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -102,7 +110,9 @@ const fullScreen = () => {
 }
 
 // ==================================================华丽的分割线==================================================
-const color = ref('rgba(255, 69, 0, 0.68)')
+const settingVisible = ref<boolean>(false)
+
+const color = ref<string>('#1e90ff')
 const predefineColors = ref([
   '#ff4500',
   '#ff8c00',
@@ -119,6 +129,11 @@ const predefineColors = ref([
   'hsla(209, 100%, 56%, 0.73)',
   '#c7158577',
 ])
+const changeColor = (val: string) => {
+  const html = document.documentElement
+  // 设置 css 变量
+  html.style.setProperty('--el-color-primary', val)
+}
 
 const dark = ref<boolean>(themeDark.value)
 const changeDark = (val: boolean) => {
@@ -143,4 +158,11 @@ const logout = async () => {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang='scss'>
+.setting-form {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+</style>
