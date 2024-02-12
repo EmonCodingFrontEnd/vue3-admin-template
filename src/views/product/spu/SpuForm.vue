@@ -407,12 +407,13 @@ const toEditMode = (row: SpuSaleAttr, $index: number) => {
 // 对Table表格的引用
 const skuTableRef = ref()
 // ==================================================华丽的分割线==================================================
-// [lm's ps]: 20240211 21:43 表单重置方式二
+// [lm's ps]: 20240211 21:43 表单重置方式二：change+clearValidate
 // 初始化方法
 const init = async (spuInfo: SpuData) => {
   const { id: spuId } = spuInfo
   // 修改
   if (spuId) {
+    // 表单验证使用了change而不是blur时，这里会触发重新验证
     Object.assign(spuForm, cloneDeep(spuInfo))
     attrIdAndAttrName.value = ''
   }

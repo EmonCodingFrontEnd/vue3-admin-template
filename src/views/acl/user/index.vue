@@ -395,7 +395,7 @@ watch(
   },
   { immediate: true },
 )
-// [lm's ps]: 20240211 21:52 表单重置方式三
+// [lm's ps]: 20240211 21:52 表单重置方式三：blur+clearValidate【推荐】
 // 打开添加用户窗口
 const addUser = () => {
   userDrawerVisible.value = true

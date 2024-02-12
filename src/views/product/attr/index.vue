@@ -235,7 +235,7 @@ watch(
   { immediate: true },
 )
 
-// [lm's ps]: 20240211 21:44 表单重置方式二
+// [lm's ps]: 20240211 21:44 表单重置方式二：change+clearValidate
 // 添加属性的回调->进入添加页面
 const addAttr = () => {
   scene.value = 1
@@ -253,6 +253,7 @@ const addAttr = () => {
 // 修改属性的回调->进入修改页面
 const updateAttr = (row: Attr) => {
   scene.value = 1
+  // 表单验证使用了change而不是blur时，这里会触发重新验证
   Object.assign(attrForm, cloneDeep(row))
 }
 // 删除属性的回调->进入修改页面

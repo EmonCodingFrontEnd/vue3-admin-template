@@ -208,7 +208,7 @@ const {
 } = useElTableHelper(83, getHasTrademark)
 
 // ==================================================华丽的分割线==================================================
-// [lm's ps]: 20240211 21:42 表单重置方式一
+// [lm's ps]: 20240211 21:42 表单重置方式一：change+resetFields
 const dialogVisible = ref<boolean>(false)
 // 操作类型
 const operType = ref('')

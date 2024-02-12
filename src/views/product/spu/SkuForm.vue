@@ -247,7 +247,7 @@ const spuSaleAttrList = ref<SpuSaleAttr[]>([])
 const handleSelectionChange = (selection: SpuImage[]) => {
   // 不需要干啥
 }
-// [lm's ps]: 20240211 21:43 表单重置方式二
+
 // 设置默认图片的方法回调
 const changeDefaultImg = (row: SpuImage) => {
   spuImageFileList.value.forEach((e) => (e.isDefault = '0'))
@@ -268,6 +268,7 @@ const changeDefaultImg = (row: SpuImage) => {
   setTimeout(() => skuFormRef.value?.clearValidate('skuDefaultImg'), 0)
 }
 // ==================================================华丽的分割线==================================================
+// [lm's ps]: 20240211 21:43 表单重置方式二：change+clearValidate
 const init = async (
   { category1Id, category2Id, category3Id },
   spuInfo: SpuData,
