@@ -32,7 +32,7 @@
       </el-form-item>
       <el-form-item label="暗黑模式：">
         <el-switch
-          v-model="themeDark"
+          v-model="dark"
           inline-prompt
           size="large"
           style="--el-switch-on-color: #303133; --el-switch-off-color: #e6e8eb"
@@ -120,7 +120,9 @@ const predefineColors = ref([
   '#c7158577',
 ])
 
+const dark = ref<boolean>(themeDark.value)
 const changeDark = (val: boolean) => {
+  layoutSettingStore.setThemeDark(val)
   const html = document.documentElement
   if (val) {
     html.classList.add('dark')
@@ -128,7 +130,7 @@ const changeDark = (val: boolean) => {
     html.classList.remove('dark')
   }
 }
-changeDark(themeDark.value)
+changeDark(dark.value)
 // ==================================================华丽的分割线==================================================
 
 // 退出登录点击回调
