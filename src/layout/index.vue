@@ -1,14 +1,15 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider">
+    <div
+      class="layout_slider"
+      :class="{ theme_normal: !themeDark, theme_dark: themeDark }"
+    >
       <Logo></Logo>
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
         <el-menu
-          background-color="#001529"
-          text-color="white"
           :router="false"
           :collapse="fold"
           :collapse-transition="true"
@@ -25,7 +26,10 @@
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示区 -->
-    <div class="layout_main" :class="{ fold }">
+    <div
+      class="layout_main"
+      :class="{ fold, theme_normal: !themeDark, theme_dark: themeDark }"
+    >
       <Main></Main>
     </div>
   </div>
@@ -56,7 +60,7 @@ let route = useRoute()
 let currentPath = route.path
 
 let layoutSettingStore = useLayoutSettingStore()
-const { fold } = storeToRefs(layoutSettingStore)
+const { fold, themeDark } = storeToRefs(layoutSettingStore)
 </script>
 
 <style scoped lang="scss">
@@ -68,7 +72,6 @@ const { fold } = storeToRefs(layoutSettingStore)
     color: white;
     width: $base-menu-width;
     height: 100vh;
-    background: $base-menu-background;
     transition: all 0.3s;
 
     .scrollbar {
@@ -78,6 +81,13 @@ const { fold } = storeToRefs(layoutSettingStore)
       .el-menu {
         border-right: none;
       }
+    }
+
+    &.theme_normal {
+    }
+
+    &.theme_dark {
+      //background: $base-menu-background;
     }
   }
 
@@ -104,11 +114,18 @@ const { fold } = storeToRefs(layoutSettingStore)
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;
-    background: white;
 
     &.fold {
       width: calc(100vw - $base-menu-min-width);
       left: $base-menu-min-width;
+    }
+
+    &.theme_normal {
+      background: #f0f2f5;
+    }
+
+    &.theme_dark {
+      background: #303133;
     }
   }
 }

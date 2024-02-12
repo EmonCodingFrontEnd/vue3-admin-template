@@ -6,6 +6,7 @@ const useLayoutSettingStore = defineStore('SettingStore', {
     return {
       fold: false, // 用于控制菜单折叠还是收起
       refresh: false, // 仓库这个属性用于控制刷新效果
+      themeDark: true, // 是否开启暗黑模式
     }
   },
 })

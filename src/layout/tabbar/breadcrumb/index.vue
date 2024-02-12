@@ -37,11 +37,6 @@ const changeIcon = () => {
 
 // 获取路由对象
 let route = useRoute()
-const handle = () => {
-  console.log(route.matched)
-
-  alert(JSON.stringify(route.meta))
-}
 </script>
 
 <style scoped lang="scss"></style>

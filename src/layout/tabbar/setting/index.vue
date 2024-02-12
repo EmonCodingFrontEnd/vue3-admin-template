@@ -6,6 +6,7 @@
     type="success"
     @click="updateRefresh"
   ></el-button>
+
   <el-button
     size="small"
     icon="FullScreen"
@@ -13,12 +14,43 @@
     type="warning"
     @click="fullScreen"
   ></el-button>
-  <el-button size="small" icon="Setting" circle type="primary"></el-button>
+
+  <el-popover
+    placement="bottom-end"
+    title="主题设置"
+    :width="300"
+    trigger="hover"
+  >
+    <el-form>
+      <el-form-item label="主题颜色：">
+        <el-color-picker
+          v-model="color"
+          size="large"
+          show-alpha
+          :predefine="predefineColors"
+        />
+      </el-form-item>
+      <el-form-item label="暗黑模式：">
+        <el-switch
+          v-model="themeDark"
+          inline-prompt
+          size="large"
+          style="--el-switch-on-color: #303133; --el-switch-off-color: #e6e8eb"
+          active-icon="MoonNight"
+          inactive-icon="Sunny"
+          @change="changeDark"
+        />
+      </el-form-item>
+    </el-form>
+    <template #reference>
+      <el-button size="small" icon="Setting" circle type="primary"></el-button>
+    </template>
+  </el-popover>
+
   <img
     :src="userStore.avatar"
     style="width: 24px; height: 24px; margin: 0px 10px; border-radius: 50%"
   />
-
   <!-- 下拉菜单 -->
   <el-dropdown>
     <span class="el-dropdown-link">
@@ -36,6 +68,7 @@
 </template>
 
 <script setup lang="ts" name="Setting">
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 // 获取用户相关的小仓库
@@ -48,11 +81,12 @@ let route = useRoute() // 路由对象
 let userStore = useUserStore()
 
 let layoutSettingStore = useLayoutSettingStore()
-const { refresh } = storeToRefs(layoutSettingStore)
+const { refresh, themeDark } = storeToRefs(layoutSettingStore)
 // 刷新按钮点击回调
 const updateRefresh = () => {
   refresh.value = !refresh.value
 }
+// ==================================================华丽的分割线==================================================
 
 // 全屏按钮点击回调
 const fullScreen = () => {
@@ -66,6 +100,36 @@ const fullScreen = () => {
     document.exitFullscreen()
   }
 }
+
+// ==================================================华丽的分割线==================================================
+const color = ref('rgba(255, 69, 0, 0.68)')
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577',
+])
+
+const changeDark = (val: boolean) => {
+  const html = document.documentElement
+  if (val) {
+    html.classList.add('dark')
+  } else {
+    html.classList.remove('dark')
+  }
+}
+changeDark(themeDark.value)
+// ==================================================华丽的分割线==================================================
 
 // 退出登录点击回调
 const logout = async () => {
