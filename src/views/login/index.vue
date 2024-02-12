@@ -128,7 +128,7 @@ const login = async () => {
     router.push({ path: redirect || '/' })
     ElNotification({
       type: 'success',
-      title: `HHI，${getTime()}好`,
+      title: `HI，${getTime()}好`,
       message: '欢迎回来！',
     })
     loading.value = false

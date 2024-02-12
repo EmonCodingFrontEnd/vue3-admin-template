@@ -10,6 +10,7 @@
         border
         stripe
         row-key="id"
+        :expand-row-keys="['1']"
         :tree-props="{ children: 'children' }"
       >
         <el-table-column
@@ -73,7 +74,7 @@
     <!--dialog对话框：完成添加新的角色|更新已有的角色信息-->
     <el-dialog v-model="permissionDialogVisible" width="550px">
       <template #header>
-        <h4>操作菜单</h4>
+        <h4>{{ permissionForm.id ? '更新菜单' : '新增菜单' }}</h4>
       </template>
       <el-form
         ref="permissionFormRef"
@@ -82,6 +83,12 @@
         :rules="permissionRules"
         label-width="100px"
       >
+        <el-form-item label="类型：" class="permission-form-item" prop="type">
+          <el-select placeholder="请选择类型" v-model="permissionForm.type">
+            <el-option label="菜单" :value="1"></el-option>
+            <el-option label="功能" :value="2"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="菜单名称：" prop="name">
           <el-input
             placeholder="请输入菜单姓名"
@@ -110,18 +117,23 @@
 </template>
 
 <script setup lang="ts" name="Permission">
-import { markRaw, nextTick, reactive, ref } from 'vue'
+import { markRaw, reactive, ref } from 'vue'
 import type {
   Permission,
+  PermissionParams,
   PermissionResponseData,
 } from '@/api/acl/permission/type'
-import { reqPermissionList } from '@/api/acl/permission'
+import {
+  reqPermissionList,
+  reqSaveOrUpdatePermission,
+  reqDeletePermission,
+} from '@/api/acl/permission'
 import useElTableHelper from '@/hooks/useElTableHelper'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import * as cloneDeep from 'lodash/cloneDeep'
+import * as pick from 'lodash/pick'
 import { User } from '@/api/acl/user/type'
 import useElFormHelper from '@/hooks/useElFormHelper'
-import { reqDeleteRole, reqSaveOrUpdateRoleInfo } from '@/api/acl/role'
 
 // ==================================================华丽的分割线==================================================
 const permissionList = ref<Permission[]>([])
@@ -149,16 +161,17 @@ const permissionFormRef = ref<FormInstance>()
 // 定义收集数据
 const initPermissionForm = markRaw({
   id: undefined,
-  code: '',
-  toCode: '',
-  type: undefined,
   pid: undefined,
   name: '',
+  code: '',
+  type: 1,
+  level: undefined,
 })
 // 深度拷贝后使用，避免污染初始的属性
-const permissionForm = reactive<Permission>(cloneDeep(initPermissionForm))
+const permissionForm = reactive<PermissionParams>(cloneDeep(initPermissionForm))
 // 定义表单校验需要的配置对象
-const permissionRules = reactive<FormRules<Permission>>({
+const permissionRules = reactive<FormRules<PermissionParams>>({
+  type: [{ required: true, message: '类型必选！', trigger: 'change' }],
   name: [
     { required: true, min: 2, message: '菜单名长度至少2位', trigger: 'blur' },
   ],
@@ -171,13 +184,16 @@ const permissionRules = reactive<FormRules<Permission>>({
 const addPermission = (row: Permission) => {
   permissionDialogVisible.value = true
   Object.assign(permissionForm, cloneDeep(initPermissionForm))
+  permissionForm.pid = row.id
+  permissionForm.level = row.level + 1
   permissionFormRef.value?.clearValidate()
 }
 
 // 打开更新菜单窗口
 const updatePermission = (row: Permission) => {
   permissionDialogVisible.value = true
-  Object.assign(permissionForm, cloneDeep(row)) // 赋值表单
+  // 提取所需属性
+  Object.assign(permissionForm, pick(row, ...Object.keys(permissionForm))) // 赋值表单
   permissionFormRef.value?.clearValidate()
 }
 
@@ -188,7 +204,7 @@ const saveOrUpdatePermission = async () => {
     const { validateCallback } = useElFormHelper(false)
     await permissionFormRef.value?.validate(validateCallback)
 
-    const result = await reqSaveOrUpdateRoleInfo(permissionForm)
+    const result = await reqSaveOrUpdatePermission(permissionForm)
     if (result.code === 200) {
       permissionDialogVisible.value = false
 
@@ -206,9 +222,9 @@ const saveOrUpdatePermission = async () => {
   }
 }
 // 删除菜单
-const deletePermission = async (row: User) => {
+const deletePermission = async (row: Permission) => {
   try {
-    const result = await reqDeleteRole(row.id as number)
+    const result = await reqDeletePermission(row.id as number)
     if (result.code === 200) {
       await getPermissionList()
       ElMessage.success('删除成功！')
@@ -227,7 +243,12 @@ const deletePermission = async (row: User) => {
   margin: 10px 0px;
 }
 
+// 深度穿透，配置角色列表的表单项布局
 .permission-form {
   width: 90%;
+
+  ::v-deep .permission-form-item .el-input__inner {
+    width: 315px;
+  }
 }
 </style>

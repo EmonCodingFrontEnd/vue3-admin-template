@@ -328,7 +328,7 @@ const {
   total,
   handleSizeChange,
   handleCurrentChange,
-} = useElTableHelper(83, getUserList)
+} = useElTableHelper(83, getUserList, 10)
 
 // 存储已选择的用户数据
 const userSelectedList = ref<User[]>([])
