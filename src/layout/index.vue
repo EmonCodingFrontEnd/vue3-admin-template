@@ -1,41 +1,41 @@
 <template>
-  <div class="layout_container">
+  <div class='layout_container'>
     <!-- 左侧菜单 -->
     <div
-      class="layout_slider"
-      :class="{ theme_normal: !themeDark, theme_dark: themeDark }"
+      class='layout_slider'
+      :class='{ theme_normal: !themeDark, theme_dark: themeDark }'
     >
       <Logo></Logo>
       <!-- 滚动组件 -->
-      <el-scrollbar class="scrollbar">
+      <el-scrollbar class='scrollbar'>
         <!-- 菜单组件 -->
         <el-menu
-          :router="false"
-          :collapse="fold"
-          :collapse-transition="true"
-          :default-active="currentPath"
-          active-text-color="yellowgreen"
+          :router='false'
+          :collapse='fold'
+          :collapse-transition='true'
+          :default-active='currentPath'
+          active-text-color='yellowgreen'
         >
           <!-- 根据路由动态生成菜单 -->
-          <Menu :menuList="menuRoutes"></Menu>
+          <Menu :menuList='menuRoutes'></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar" :class="{ fold }">
+    <div class='layout_tabbar' :class='{ fold }'>
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示区 -->
     <div
-      class="layout_main"
-      :class="{ fold, theme_normal: !themeDark, theme_dark: themeDark }"
+      class='layout_main'
+      :class='{ fold, theme_normal: !themeDark, theme_dark: themeDark }'
     >
       <Main></Main>
     </div>
   </div>
 </template>
 
-<script setup lang="ts" name="Layout">
+<script setup lang='ts' name='Layout'>
 // 引入路由
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -63,7 +63,7 @@ let layoutSettingStore = useLayoutSettingStore()
 const { fold, themeDark } = storeToRefs(layoutSettingStore)
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .layout_container {
   width: 100%;
   height: 100vh;
