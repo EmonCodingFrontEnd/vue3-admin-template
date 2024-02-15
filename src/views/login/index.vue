@@ -157,6 +157,7 @@ const login = async () => {
 
   .login_form {
     width: 80%;
+    min-width: 500px;
     position: relative;
     top: 30vh;
     margin: auto;
