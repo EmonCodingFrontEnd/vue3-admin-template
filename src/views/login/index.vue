@@ -14,14 +14,20 @@
           <el-form-item prop="username">
             <!-- 这里要注意：若是绑定图标(:prefix-icon="User")，需要在setup中引入；若是使用全局图标(prefix-icon="User")，不需要setup引入。 -->
             <el-input
+              class="transparent-input"
+              size="large"
               prefix-icon="User"
+              placeholder="请输入用户名"
               v-model="loginForm.username"
             ></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
+              class="transparent-input"
+              size="large"
               type="password"
               :prefix-icon="Lock"
+              placeholder="请输入密码"
               v-model="loginForm.password"
               show-password
             ></el-input>
@@ -29,7 +35,7 @@
           <el-form-item>
             <el-button
               type="primary"
-              size="default"
+              size="large"
               class="login_btn"
               @click="login"
               :loading="loading"
@@ -54,7 +60,6 @@ import { getTime } from '@/utils/time'
 import type { LoginFormData } from '@/api/user/type'
 import useUserStore from '@/store/modules/user'
 import useElFormHelper from '@/hooks/useElFormHelper'
-import { LoginResponseData } from '@/api/user/type'
 
 // 引入用户相关的小仓库
 let userStore = useUserStore()
@@ -169,8 +174,26 @@ const login = async () => {
       margin: 20px 0px;
     }
 
+    .transparent-input {
+      ::v-deep .el-input__wrapper {
+        background-color: transparent;
+        box-shadow: 0 0 0 1px #466acb inset;
+
+        .el-input__inner {
+          color: #cdd0d6;
+        }
+      }
+    }
+
     .login_btn {
       width: 100%;
+      background-image: linear-gradient(
+        to right,
+        #4556c8,
+        #4464cb,
+        #3d93d9,
+        #3d44be
+      );
     }
   }
 }
