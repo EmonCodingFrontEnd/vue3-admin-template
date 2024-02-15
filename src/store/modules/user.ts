@@ -8,6 +8,7 @@ import type { UserState } from '@/store/modules/types/type'
 import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由
 import { constantRoute } from '@/router/routes'
+import setting from '@/setting'
 import {
   LoginFormData,
   LoginResponseData,
@@ -31,6 +32,11 @@ const useUserStore = defineStore('UserStore', {
     // 用户登录的方法
     async userLogin(data: LoginFormData) {
       const result: LoginResponseData = await reqLogin(data)
+      // mockLogin: true时，若登录服务器返回的code不是200，那么就模拟一个成功的响应
+      if (setting.mockLogin && 200 !== result.code) {
+        result.code = 200
+        result.data = '123'
+      }
       if (200 === result.code) {
         // 由于pinia|vuex存储数据其实利用js对象
         this.token = result.data as string
@@ -46,6 +52,17 @@ const useUserStore = defineStore('UserStore', {
     async userInfo() {
       // 获取用户信息进行存储仓库[用户头像、名字】
       const result: UserInfoResponseData = await reqUserInfo()
+      // mockLogin: true时，若登录服务器返回的code不是200，那么就模拟一个成功的响应
+      if (setting.mockLogin && 200 !== result.code) {
+        result.code = 200
+        result.data = {
+          name: '李明',
+          avatar: 'abc',
+          routes: [],
+          buttons: [],
+          roles: [],
+        }
+      }
       if (200 === result.code) {
         this.username = result.data.name
         this.avatar = result.data.avatar
