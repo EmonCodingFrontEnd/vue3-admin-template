@@ -12,11 +12,13 @@
         <img src="../../images/woman.png" alt="" />
       </div>
     </div>
-    <div class="rate">
-      <p>男士58%</p>
-      <p>女士42%</p>
+    <div class="chart_content">
+      <div class="rate">
+        <p>男士 58%</p>
+        <p>女士 42%</p>
+      </div>
+      <div class="charts" ref="charts"></div>
     </div>
-    <div class="charts" ref="charts"></div>
   </div>
 </template>
 
@@ -38,20 +40,25 @@ onMounted(() => {
     series: [
       {
         type: 'bar',
-        data: [78],
-        color: 'orange',
+        data: [58],
         // 柱状图的宽度
         barWidth: 20,
-        // 设置背景颜色
-        showBackground: true,
-        backgroundStyle: { color: '#eee' },
-        // 文本标签
-        label: {
-          show: true,
-          // 改变文本标签的内容
-          formatter: '|',
-          // 文本标签的位置
-          position: 'right',
+        z: 5,
+        itemStyle: {
+          color: '#007afe',
+          borderRadius: 20,
+        },
+      },
+      {
+        type: 'bar',
+        data: [100],
+        // 柱状图的宽度
+        barWidth: 20,
+        // 调整女士柱条位置
+        barGap: '-100%',
+        itemStyle: {
+          color: '#ff4b7a',
+          borderRadius: 20,
         },
       },
     ],
@@ -61,7 +68,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .sex_box {
-  background: url('../../images/dataScreen-main-cb.png') no-repeat;
+  background: url('../../images/dataScreen-main-lb.png') no-repeat;
   background-size: 100% 100%;
   margin-top: 10px;
 
@@ -85,6 +92,7 @@ onMounted(() => {
   .sex {
     display: flex;
     justify-content: center;
+    margin-top: 40px;
 
     .man {
       margin: 20px;
@@ -109,15 +117,22 @@ onMounted(() => {
     }
   }
 
-  .rate {
+  .chart_content {
     display: flex;
-    justify-content: space-between;
-    color: white;
-  }
+    flex-direction: column;
+    align-items: center;
 
-  .charts {
-    width: 100%;
-    height: 108px;
+    .rate {
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .charts {
+      width: 80%;
+      height: 64px;
+    }
   }
 }
 </style>

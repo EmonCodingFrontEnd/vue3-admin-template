@@ -39,7 +39,7 @@ onMounted(() => {
       left: 'center',
       top: '50',
       textStyle: {
-        color: 'blue',
+        color: 'white',
         fontSize: 16,
       },
     },
@@ -48,7 +48,7 @@ onMounted(() => {
       {
         type: 'liquidFill',
         data: [0.6, { value: 0.5, direction: 'left' }, 0.4, 0.3],
-        color: ['#15cf78', '#cf5f15', '#24cf15', '#2261d6'],
+        color: ['#15cf78', '#cf5f15', '#24cf15', '#d68522'],
         itemStyle: {
           opacity: 1,
           shadowBlur: 30,
@@ -59,7 +59,7 @@ onMounted(() => {
         animationDurationUpdate: 0,
         radius: '90%',
         backgroundStyle: {
-          color: '#E3F7FF',
+          color: '#0c2649',
           borderWidth: 3,
           borderColor: 'rgb(36,207,21)',
           shadowBlur: 50,
