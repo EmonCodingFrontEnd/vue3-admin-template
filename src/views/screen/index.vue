@@ -6,7 +6,11 @@
         <Top></Top>
       </div>
       <div class="bottom">
-        <div class="left">左侧</div>
+        <div class="left">
+          <Tourist class="tourist"></Tourist>
+          <Sex class="sex"></Sex>
+          <Age class="age"></Age>
+        </div>
         <div class="center">中间</div>
         <div class="right">右侧</div>
       </div>
@@ -18,6 +22,10 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import * as debounce from 'lodash/debounce'
 import Top from '@/views/screen/components/top/index.vue'
+// 引入左侧三个组件
+import Tourist from '@/views/screen/components/tourist/index.vue'
+import Sex from '@/views/screen/components/sex/index.vue'
+import Age from '@/views/screen/components/age/index.vue'
 
 // 获取数据大屏展示内容盒子的DOM元素
 const screen = ref()
@@ -66,16 +74,34 @@ onBeforeUnmount(() => window.removeEventListener('resize', handleFn))
 
       .left {
         flex: 1;
-        background-color: #8c939d;
+        height: 1040px;
+
+        display: flex;
+        flex-direction: column;
+
+        .tourist {
+          flex: 1.2;
+        }
+
+        .sex {
+          flex: 1;
+        }
+
+        .age {
+          flex: 1;
+        }
       }
 
       .center {
         flex: 2;
-        background-color: #303133;
+        margin-top: 33px;
+        height: 1007px;
+        background-color: purple;
       }
 
       .right {
         flex: 1;
+        height: 1040px;
         background-color: skyblue;
       }
     }
