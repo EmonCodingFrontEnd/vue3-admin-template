@@ -6,10 +6,10 @@
     </div>
     <div class="sex">
       <div class="man">
-        <img src="../../images/man.png" alt="" />
+        <img src="../../../images/man.png" alt="" />
       </div>
       <div class="woman">
-        <img src="../../images/woman.png" alt="" />
+        <img src="../../../images/woman.png" alt="" />
       </div>
     </div>
     <div class="chart_content">
@@ -68,7 +68,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .sex_box {
-  background: url('../../images/dataScreen-main-lb.png') no-repeat;
+  background: url('../../../images/dataScreen-main-lb.png') no-repeat;
   background-size: 100% 100%;
   margin-top: 10px;
 
@@ -83,7 +83,7 @@ onMounted(() => {
     .bg {
       width: 68px;
       height: 7px;
-      background: url(../../images/dataScreen-title.png) no-repeat;
+      background: url(../../../images/dataScreen-title.png) no-repeat;
       background-size: 100% 100%;
       margin-top: 10px;
     }
@@ -98,7 +98,7 @@ onMounted(() => {
       margin: 20px;
       width: 111px;
       height: 115px;
-      background: url('../../images/man-bg.png');
+      background: url('../../../images/man-bg.png');
       background-size: 100% 100%;
       display: flex;
       justify-content: center;
@@ -109,7 +109,7 @@ onMounted(() => {
       margin: 20px;
       width: 111px;
       height: 115px;
-      background: url('../../images/woman-bg.png');
+      background: url('../../../images/woman-bg.png');
       background-size: 100% 100%;
       display: flex;
       justify-content: center;

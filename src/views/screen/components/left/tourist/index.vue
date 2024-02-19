@@ -89,7 +89,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .tourist_box {
-  background: url('../../images/dataScreen-main-lb.png') no-repeat;
+  background: url('../../../images/dataScreen-main-lb.png') no-repeat;
   background-size: 100% 100%;
   margin-top: 10px;
 
@@ -104,7 +104,7 @@ onMounted(() => {
     .bg {
       width: 68px;
       height: 7px;
-      background: url(../../images/dataScreen-title.png) no-repeat;
+      background: url(../../../images/dataScreen-title.png) no-repeat;
       background-size: 100% 100%;
       margin-top: 10px;
     }
@@ -130,7 +130,7 @@ onMounted(() => {
       height: 47px;
       text-align: center;
       line-height: 47px;
-      background: url('../../images/total.png') no-repeat;
+      background: url('../../../images/total.png') no-repeat;
       background-size: 100% 100%;
       color: #29fcff;
       font-size: 30px;

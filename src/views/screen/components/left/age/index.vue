@@ -18,44 +18,44 @@ onMounted(() => {
   const myChart = echarts.init(charts.value)
   // 设置实例的配置项
   myChart.setOption({
+    // 布局组件
+    grid: { left: 0, top: 0, right: 0, bottom: 0 },
     tooltip: {
       trigger: 'item',
     },
+    // 图例组件
     legend: {
-      top: '5%',
-      left: 'center',
+      top: 'middle',
+      right: 20,
+      orient: 'vertical',
+      textStyle: {
+        color: 'white',
+        fontSize: 18,
+      },
     },
     series: [
       {
         name: 'Access From',
         type: 'pie',
         radius: ['40%', '70%'],
+        // 是否启用防止标签重叠策略，默认开启
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2,
+          borderColor: 'cyan',
+          borderWidth: 1,
         },
         label: {
-          show: false,
-          position: 'center',
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 40,
-            fontWeight: 'bold',
-          },
-        },
-        labelLine: {
-          show: false,
+          show: true,
+          position: 'inside',
+          color: 'white',
         },
         data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' },
+          { value: 1048, name: '军事' },
+          { value: 735, name: '新闻' },
+          { value: 580, name: '直播' },
+          { value: 484, name: '娱乐' },
+          { value: 300, name: '财经' },
         ],
       },
     ],
@@ -65,7 +65,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .age_box {
-  background: url('../../images/dataScreen-main-lb.png') no-repeat;
+  background: url('../../../images/dataScreen-main-lb.png') no-repeat;
   background-size: 100% 100%;
   margin-top: 10px;
 
@@ -80,7 +80,7 @@ onMounted(() => {
     .bg {
       width: 68px;
       height: 7px;
-      background: url(../../images/dataScreen-title.png) no-repeat;
+      background: url(../../../images/dataScreen-title.png) no-repeat;
       background-size: 100% 100%;
       margin-top: 10px;
     }
