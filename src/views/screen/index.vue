@@ -116,7 +116,8 @@ onBeforeUnmount(() => window.removeEventListener('resize', handleFn))
       .right {
         flex: 1;
         height: 1040px;
-        background-color: skyblue;
+        opacity: 0.2;
+        background-color: blueviolet;
       }
     }
   }
