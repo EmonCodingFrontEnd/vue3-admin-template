@@ -1,5 +1,6 @@
 // 对外暴露配置的路由
 export const constantRoute = [
+  // 一级路由：登录
   {
     path: '/login', // 登录
     name: 'Login', // 命名路由
@@ -10,6 +11,7 @@ export const constantRoute = [
       icon: 'Promotion', // 菜单文字左侧图标，支持element-plus全部图标
     },
   },
+  // 一级路由：首页
   {
     path: '/', // 登录成功以后展示数据的路由
     name: 'Layout',
@@ -33,6 +35,7 @@ export const constantRoute = [
       },
     ],
   },
+  // 一级路由：404
   {
     path: '/404',
     name: '404',
@@ -43,6 +46,7 @@ export const constantRoute = [
       icon: 'DocumentDelete',
     },
   },
+  // 一级路由：数据大屏
   {
     path: '/screen',
     name: 'Screen',
@@ -53,6 +57,11 @@ export const constantRoute = [
       icon: 'Monitor',
     },
   },
+]
+
+// 异步路由
+export const asyncRoute = [
+  // 一级路由：权限
   {
     path: '/acl',
     name: 'Acl',
@@ -96,6 +105,7 @@ export const constantRoute = [
       },
     ],
   },
+  // 一级路由：商品
   {
     path: '/product',
     name: 'Product',
@@ -149,6 +159,11 @@ export const constantRoute = [
       },
     ],
   },
+]
+
+// 任意路由
+export const anyRoute = [
+  // 一级路由：任意路由
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
