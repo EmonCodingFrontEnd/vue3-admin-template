@@ -45,10 +45,10 @@ onMounted(() => {
       // 雷达图的指示器，用来指定雷达图中多个变量（维度）
       indicator: [
         { name: '消费', max: 6500, color: 'yellowgreen' },
-        { name: '好感度', max: 16000, color: 'red' },
-        { name: '出行方式', max: 30000, color: 'purple' },
+        { name: '好感度', max: 16000, color: 'ivory' },
+        { name: '出行方式', max: 30000, color: 'skyblue' },
         { name: '小吃', max: 38000, color: 'cyan' },
-        { name: '爱要', max: 52000, color: 'orange' },
+        { name: '爱好', max: 52000, color: 'olive' },
         { name: '经典', max: 25000, color: 'hotpink' },
       ],
     },
