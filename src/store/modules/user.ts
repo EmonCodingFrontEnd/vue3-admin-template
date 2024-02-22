@@ -27,6 +27,7 @@ const useUserStore = defineStore('UserStore', {
       menuRoutes: constantRoute, // 仓库存储生成菜单需要数组（路由）
       username: '',
       avatar: '',
+      buttons: [], // 用户的按钮权限
     }
   },
   // 异步|逻辑的地方
@@ -95,6 +96,7 @@ const useUserStore = defineStore('UserStore', {
       if (200 === result.code) {
         this.username = result.data.name
         this.avatar = result.data.avatar
+        this.buttons = result.data.buttons
 
         // 深度拷贝解决异步路由被改变的问题
         const copiedAsyncRoute = cloneDeep(asyncRoute)

@@ -33,5 +33,8 @@ app.use(router)
 app.use(pinia)
 // 引入路由鉴权文件
 import '@/permission'
+// 引入自定义指令文件
+import { isHasButtonAuth } from '@/directive/auth'
+isHasButtonAuth(app)
 
 app.mount('#app')
