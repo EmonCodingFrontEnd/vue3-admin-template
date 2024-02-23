@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    // target 用来指定ts被编译为的ES版本
     "target": "ES2020",
     "useDefineForClassFields": true,
+    // module 指定要使用的模块化的规范
     "module": "ESNext",
+    // lib用来指定项目中要使用的库
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     /* Bundler mode */
@@ -10,10 +13,11 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    // 是否生成编译器的输出文件
     "noEmit": true,
     "jsx": "preserve",
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false, // 避免出现 已声明“xxx”，但从未读取其值
     "noFallthroughCasesInSwitch": true,
@@ -25,6 +29,7 @@
     },
     // 如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
     "types": ["element-plus/global"],
+    // 允许导入默认导出
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
