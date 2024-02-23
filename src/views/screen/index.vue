@@ -27,7 +27,7 @@
 
 <script setup lang="ts" name="Screen">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import * as debounce from 'lodash/debounce'
+import debounce from 'lodash/debounce'
 import Top from '@/views/screen/components/top/index.vue'
 // 引入左侧三个组件
 import Tourist from '@/views/screen/components/left/tourist/index.vue'

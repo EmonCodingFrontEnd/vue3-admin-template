@@ -6,10 +6,15 @@
     // module 指定要使用的模块化的规范
     "module": "ESNext",
     // lib用来指定项目中要使用的库
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "Node", // 指定TS在解析模块导入语句时使用的解析策略！Bundler-TS编译器认为是VueCli或Webpack在解析； Node-使用Node.js解析
+    "moduleResolution": "Node",
+    // 指定TS在解析模块导入语句时使用的解析策略！Bundler-TS编译器认为是VueCli或Webpack在解析； Node-使用Node.js解析
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -19,20 +24,35 @@
     /* Linting */
     "strict": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": false, // 避免出现 已声明“xxx”，但从未读取其值
+    "noUnusedParameters": false,
+    // 避免出现 已声明“xxx”，但从未读取其值
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
+    "baseUrl": "./",
+    // 解析非相对模块的基地址，默认是当前目录
     /* 其他 */
     "paths": {
       // 路径映射，相对于baseUrl
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     // 如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
-    "types": ["element-plus/global"],
-    // 允许导入默认导出
+    "types": [
+      "element-plus/global"
+    ],
+    // 值为true时，表示将CommonJS的所有导出合并为一个default export，对ES Module无影响
+    "esModuleInterop": true,
+    /*
+    值为true时，对于没有显式指定默认导出的模块，可以优化导入写法 import * as xxx from 'xxx' => import xxx from 'xxx'
+    但是该配置项并不会影响ts编译结果，只有开启了 esModuleInterop 配置值为true时，才会有优化效果
+     */
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
