@@ -166,7 +166,7 @@ import type {
   UploadUserFile,
 } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep'
 import {
   PICTURE_UPLOAD_URL,
   reqAddOrUpdateTrademark,

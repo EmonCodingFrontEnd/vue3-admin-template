@@ -23,7 +23,7 @@ import chainJSON from './china.json'
 // 定义引用
 const charts = ref()
 // 注册地图
-echarts.registerMap('china', chainJSON)
+echarts.registerMap('china', chainJSON as any)
 onMounted(() => {
   // 获取echarts类的实例对象
   const myChart = echarts.init(charts.value)
