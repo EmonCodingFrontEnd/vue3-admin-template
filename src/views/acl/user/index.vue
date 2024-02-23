@@ -555,7 +555,7 @@ const doAssignRole = async () => {
 
 // 深度穿透，配置角色列表的表单项布局
 .role-form .role-form-item {
-  ::v-deep .el-form-item__content {
+  :deep(.el-form-item__content) {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

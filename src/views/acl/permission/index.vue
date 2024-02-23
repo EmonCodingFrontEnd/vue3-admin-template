@@ -247,7 +247,7 @@ const deletePermission = async (row: Permission) => {
 .permission-form {
   width: 90%;
 
-  ::v-deep .permission-form-item .el-input__inner {
+  :deep(.permission-form-item .el-input__inner) {
     width: 315px;
   }
 }

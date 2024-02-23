@@ -177,7 +177,7 @@ const login = async () => {
     }
 
     .transparent-input {
-      ::v-deep .el-input__wrapper {
+      :deep(.el-input__wrapper) {
         background-color: transparent;
         box-shadow: 0 0 0 1px #466acb inset;
 
