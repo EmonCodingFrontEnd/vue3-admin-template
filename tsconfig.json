@@ -6,11 +6,7 @@
     // module 指定要使用的模块化的规范
     "module": "ESNext",
     // lib用来指定项目中要使用的库
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "Node",
@@ -32,14 +28,10 @@
     /* 其他 */
     "paths": {
       // 路径映射，相对于baseUrl
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     // 如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
-    "types": [
-      "element-plus/global"
-    ],
+    "types": ["element-plus/global"],
     // 值为true时，表示将CommonJS的所有导出合并为一个default export，对ES Module无影响
     "esModuleInterop": true,
     /*
@@ -48,11 +40,7 @@
      */
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [
     {
       "path": "./tsconfig.node.json"
