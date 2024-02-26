@@ -16,7 +16,7 @@ import {
   LogoutResponseData,
 } from '@/api/user/type'
 import router from '@/router' // .js/.ts/.vue中获取路由器对象router的方式
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 
 // 创建用户小仓库
 const useUserStore = defineStore('UserStore', {

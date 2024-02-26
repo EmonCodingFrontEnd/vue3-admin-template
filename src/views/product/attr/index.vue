@@ -170,7 +170,7 @@
 import { computed, markRaw, nextTick, reactive, ref, watch } from 'vue' // 引入获取已有属性与属性值接口
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 import type { FormInstance, FormRules } from 'element-plus'
 import useCategoryStore from '@/store/modules/category'
 import {

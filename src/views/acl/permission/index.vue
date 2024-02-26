@@ -130,9 +130,8 @@ import {
 } from '@/api/acl/permission'
 import useElTableHelper from '@/hooks/useElTableHelper'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
-import * as cloneDeep from 'lodash/cloneDeep'
-import * as pick from 'lodash/pick'
-import { User } from '@/api/acl/user/type'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
+import pick from 'lodash/pick'
 import useElFormHelper from '@/hooks/useElFormHelper'
 
 // ==================================================华丽的分割线==================================================

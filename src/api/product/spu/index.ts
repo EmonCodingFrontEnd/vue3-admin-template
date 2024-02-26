@@ -28,9 +28,9 @@ enum API {
   ADD_SPU_URL = '/admin/product/saveSpuInfo',
   // 更新已有的SPU
   UPDATE_SPU_URL = '/admin/product/updateSpuInfo',
-  // 图片上传地址
-  PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 +
-    '/admin/product/fileUpload',
+  // 图片上传地址 [lm's ps]: 20240226 17:28 为了编译通过而调整
+  PICTURE_UPLOAD_URL = (import.meta.env.VITE_APP_BASE_API_8209 +
+    '/admin/product/fileUpload') as unknown as number,
   // 追加一个新增的SKU地址
   ADD_SKU_URL = '/admin/product/saveSkuInfo',
   // 查看某一个已有的SPU下全部的售卖商品

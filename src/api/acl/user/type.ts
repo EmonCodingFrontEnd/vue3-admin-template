@@ -8,7 +8,7 @@ export interface User {
   username: string
   password: string
   name: string
-  phone?: null
+  phone?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
   roleName?: string
 }
 

@@ -5,7 +5,7 @@ export interface Role {
   id?: number
   createTime?: string
   updateTime?: string
-  remark?: null
+  remark?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
   roleName: string
 }
 

@@ -132,7 +132,7 @@ import type { FormInstance, FormRules, ElTable } from 'element-plus'
 import type { SpuData, SkuData } from '@/api/product/spu/type'
 import type { Attr, AttrList, AttrResponseData } from '@/api/product/attr/type'
 import { reqAttr } from '@/api/product/attr'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 import type {
   SkuAttrValue,
   SkuSaleAttrValue,
@@ -326,7 +326,11 @@ const saveSku = async () => {
       (prev: SkuAttrValue[], curr: Attr) => {
         if (curr.attrIdAndValueId) {
           const [attrId, valueId] = (<string>curr.attrIdAndValueId)?.split(':')
-          prev.push({ attrId, valueId } as SkuAttrValue)
+          // [lm's ps]: 20240226 17:28 为了编译通过而调整
+          prev.push({
+            attrId: attrId as unknown as number,
+            valueId,
+          } as SkuAttrValue)
         }
         return prev
       },

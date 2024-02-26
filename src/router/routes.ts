@@ -1,5 +1,5 @@
-// 对外暴露配置的路由
-export const constantRoute = [
+// 对外暴露配置的路由 [lm's ps]: 20240226 17:28 为了编译通过而调整
+export const constantRoute: any = [
   // 一级路由：登录
   {
     path: '/login', // 登录

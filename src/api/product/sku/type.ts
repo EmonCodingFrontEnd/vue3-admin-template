@@ -2,6 +2,7 @@ import type { ResponseData } from '@/api/base'
 
 // 定义SKU对象的ts类型
 export interface SkuAttrValue {
+  id?: number
   attrId: number // 平台属性的ID
   attrName: string
   valueId: number // 平台属性值的ID
@@ -9,6 +10,7 @@ export interface SkuAttrValue {
 }
 
 export interface SkuSaleAttrValue {
+  id?: number
   saleAttrId: number // 销售属性ID
   saleAttrName: string
   saleAttrValueId: number // 销售属性值的ID

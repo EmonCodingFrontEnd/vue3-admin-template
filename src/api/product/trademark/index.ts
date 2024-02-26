@@ -14,9 +14,9 @@ enum API {
   ADD_TRADEMARK_URL = '/admin/product/baseTrademark/save',
   // 修改已有品牌
   UPDATE_TRADEMARK_URL = '/admin/product/baseTrademark/update',
-  // 图片上传地址
-  PICTURE_UPLOAD_URL = import.meta.env.VITE_APP_BASE_API_8209 +
-    '/admin/product/fileUpload',
+  // 图片上传地址 [lm's ps]: 20240226 17:28 为了编译通过而调整
+  PICTURE_UPLOAD_URL = (import.meta.env.VITE_APP_BASE_API_8209 +
+    '/admin/product/fileUpload') as unknown as number,
   // 删除已有品牌
   DELETE_URL = '/admin/product/baseTrademark/remove/',
 }

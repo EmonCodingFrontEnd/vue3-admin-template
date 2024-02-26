@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, ref, nextTick } from 'vue'
 import type { ElTable } from 'element-plus'
-import * as debounce from 'lodash/debounce'
+import debounce from 'lodash/debounce' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 
 export default function (
   bottomOffset = 50,

@@ -198,7 +198,7 @@ import {
   reqAddOrUpdateSpuInfo,
 } from '@/api/product/spu'
 import type { Trademark } from '@/api/product/trademark/type'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 import { StringResponseData } from '@/api/base'
 import useElFormHelper from '@/hooks/useElFormHelper'
 
@@ -366,7 +366,7 @@ const inputRefArr = ref<any>([])
 const addSaleAttr = () => {
   const [baseSaleAttrId, saleAttrName] = attrIdAndAttrName.value?.split(':')
   const newSaleAttr: SpuSaleAttr = {
-    baseSaleAttrId: baseSaleAttrId as number,
+    baseSaleAttrId: baseSaleAttrId as unknown as number,
     saleAttrName,
     spuSaleAttrValueList: [],
   }
@@ -475,7 +475,8 @@ const saveSpu = async () => {
     spuForm.spuImageList = spuImageFileList.value.map((item) => {
       return {
         imgName: item.name,
-        imgUrl: (item.response && item.response.data) || item.url,
+        // [lm's ps]: 20240226 17:28 为了编译通过而调整
+        imgUrl: (item.response && (item.response as any).data) || item.url,
       } as SpuImage
     })
     spuForm.spuSaleAttrList = spuSaleAttrList.value

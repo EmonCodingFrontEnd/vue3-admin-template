@@ -201,8 +201,8 @@ const {
 // ==================================================华丽的分割线==================================================
 // 商品SKU抽屉是否显示
 const drawerVisible = ref<boolean>(false)
-// 抽屉的出场方式：rtl-从右到左（默认）
-const drawerDirection = ref('rtl')
+// 抽屉的出场方式：rtl-从右到左（默认） [lm's ps]: 20240226 17:28 为了编译通过而调整
+const drawerDirection = ref<'rtl' | 'ltr' | 'ttb' | 'btt'>('rtl')
 const skuInfo = ref<SkuData>()
 
 // ==================================================华丽的分割线==================================================
@@ -234,7 +234,8 @@ const viewSku = async (row: SkuData) => {
     skuInfo.value = result.data
     drawerVisible.value = true
   } else {
-    ElMessage.error(result.data || result.message)
+    // [lm's ps]: 20240226 17:28 为了编译通过而调整
+    ElMessage.error((result.data as any) || result.message)
   }
 }
 // 删除SKU

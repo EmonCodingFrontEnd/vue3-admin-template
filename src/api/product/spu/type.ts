@@ -67,9 +67,9 @@ export interface SpuSaleAttrValue {
   baseSaleAttrId: number
   saleAttrValueName: string
   saleAttrName?: string
-  isChecked?: null
-  createTime?: null
-  updateTime?: null
+  isChecked?: boolean // [lm's ps]: 20240226 17:28 为了编译通过而调整
+  createTime?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
+  updateTime?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
 }
 
 // 存储已有的销售属性数组类型
@@ -82,8 +82,8 @@ export interface SpuSaleAttr {
   baseSaleAttrId: number
   saleAttrName: string
   spuSaleAttrValueList: SpuSaleAttrValueList
-  createTime?: null
-  updateTime?: null
+  createTime?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
+  updateTime?: string // [lm's ps]: 20240226 17:28 为了编译通过而调整
   edit?: boolean // non-backend-field
   saleAttrValueName?: string // non-backend-field
   saleAttrIdAndValueId?: string // non-backend-field

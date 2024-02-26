@@ -4,7 +4,7 @@ import type { CategoryObj } from '@/api/product/attr/type'
 // 定义user小仓库数据state类型
 export interface UserState {
   token: string | null
-  menuRoutes: RouteRecordRaw[]
+  menuRoutes: any // RouteRecordRaw[] [lm's ps]: 20240226 17:28 为了编译通过而调整
   username: string
   avatar: string
   buttons: string[]

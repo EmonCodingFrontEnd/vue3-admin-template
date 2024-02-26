@@ -176,7 +176,7 @@
 
 <script setup lang="ts" name="Role">
 import { markRaw, reactive, ref } from 'vue'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 import type { FormInstance, FormRules, ElTree } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import type {
@@ -334,7 +334,7 @@ const deleteRole = async (row: User) => {
 // 抽屉是否显示
 const menuDrawerVisible = ref<boolean>(false)
 // 抽屉的出场方式：rtl-从右到左（默认）
-const menuDrawerDirection = ref('rtl')
+const menuDrawerDirection = ref<'rtl' | 'ltr' | 'ttb' | 'btt'>('rtl')
 // 定义收集数据
 const initMenuForm = markRaw({
   roleId: undefined,
@@ -383,9 +383,11 @@ const assignMenu = async (row: User) => {
 
 // 执行权限分配
 const doAssignMenu = async () => {
-  const halfCheckedKeys = menuTreeRef.value?.getHalfCheckedKeys()
-  const checkedKeys = menuTreeRef.value?.getCheckedKeys(false)
-  menuForm.permissionIdList = [...halfCheckedKeys, ...checkedKeys]
+  let halfCheckedKeys = menuTreeRef.value?.getHalfCheckedKeys()
+  let checkedKeys = menuTreeRef.value?.getCheckedKeys(false)
+  menuForm.permissionIdList = [...halfCheckedKeys, ...checkedKeys].map(
+    (item) => item as number,
+  )
   const result = await reqAssignRolePermission(menuForm)
   if (result.code === 200) {
     menuDrawerVisible.value = false

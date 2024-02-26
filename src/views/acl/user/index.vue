@@ -271,17 +271,17 @@ import {
 } from '@/api/acl/user'
 import useElFormHelper from '@/hooks/useElFormHelper'
 import useElTableHelper from '@/hooks/useElTableHelper'
-import * as cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep' // [lm's ps]: 20240226 17:28 为了编译通过而调整
 import useUserStore from '@/store/modules/user'
 // ==================================================华丽的分割线==================================================
 // 对Form表单的引用
 const userQryFormRef = ref<FormInstance>()
 // 定义收集数据
 const initUserQryForm = markRaw({ username: '' })
-// 深度拷贝后使用，避免污染初始的属性
-const userQryForm = reactive<User>(cloneDeep(initUserQryForm))
-// 定义表单校验需要的配置对象
-const userQryRules = reactive<FormRules<User>>({
+// 深度拷贝后使用，避免污染初始的属性 [lm's ps]: 20240226 17:28 为了编译通过而调整
+const userQryForm = reactive<any>(cloneDeep(initUserQryForm))
+// 定义表单校验需要的配置对象 [lm's ps]: 20240226 17:28 为了编译通过而调整
+const userQryRules = reactive<FormRules<any>>({
   username: [{ required: false, trigger: 'blur' }],
 })
 
@@ -339,7 +339,7 @@ const handleSelectionChange = (val: User[]) => {
 // 抽屉是否显示
 const userDrawerVisible = ref<boolean>(false)
 // 抽屉的出场方式：rtl-从右到左（默认）
-const userDrawerDirection = ref('rtl')
+const userDrawerDirection = ref<'rtl' | 'ltr' | 'ttb' | 'btt'>('rtl')
 // 对Form表单的引用
 const userFormRef = ref<FormInstance>()
 // 定义收集数据
@@ -475,8 +475,8 @@ const batchDelete = async () => {
 // ==================================================华丽的分割线==================================================
 // 抽屉是否显示
 const roleDrawerVisible = ref<boolean>(false)
-// 抽屉的出场方式：rtl-从右到左（默认）
-const roleDrawerDirection = ref('rtl')
+// 抽屉的出场方式：rtl-从右到左（默认） [lm's ps]: 20240226 17:28 为了编译通过而调整
+const roleDrawerDirection = ref<'rtl' | 'ltr' | 'ttb' | 'btt'>('rtl')
 // 对Form表单的引用
 const roleFormRef = ref<FormInstance>()
 // 深度拷贝后使用，避免污染初始的属性
@@ -488,13 +488,14 @@ const roleRules = reactive<FormRules<User>>({
 
 const checkAll = ref<boolean>(false) // 是否已经全选
 const isIndeterminate = ref(true) // 设置checkbox不确定状态，仅负责样式控制，默认false
-const allRoles = ref<AllRole>([]) // 所有选项
-const userRoles = ref<AllRole>([]) // 已选
+const allRoles = ref<any>([]) // 所有选项 [lm's ps]: 20240226 17:28 为了编译通过而调整
+const userRoles = ref<any>([]) // 已选 [lm's ps]: 20240226 17:28 为了编译通过而调整
 const handleCheckAllChange = (val: boolean) => {
   userRoles.value = val ? allRoles.value : []
   isIndeterminate.value = false
 }
-const handleCheckedRolesChange = (value: AllRole) => {
+const handleCheckedRolesChange = (value: any) => {
+  // [lm's ps]: 20240226 17:28 为了编译通过而调整
   const checkedCount = value.length
   checkAll.value = checkedCount === allRoles.value.length
   isIndeterminate.value =
