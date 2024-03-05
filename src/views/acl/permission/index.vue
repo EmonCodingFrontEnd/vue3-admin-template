@@ -2,66 +2,66 @@
   <div>
     <el-card>
       <el-table
-        ref="permissionTableRef"
-        class="permission-table"
-        :data="permissionList"
-        :height="tableHeight"
-        :max-height="tableHeight"
+        ref='permissionTableRef'
+        class='permission-table'
+        :data='permissionList'
+        :height='tableHeight'
+        :max-height='tableHeight'
         border
         stripe
-        row-key="id"
+        row-key='id'
         :expand-row-keys="['1']"
         :tree-props="{ children: 'children' }"
       >
         <el-table-column
-          label="名称"
-          prop="name"
-          width="200px"
-          fixed="left"
+          label='名称'
+          prop='name'
+          width='200px'
+          fixed='left'
         ></el-table-column>
-        <el-table-column label="权限值" prop="code"></el-table-column>
+        <el-table-column label='权限值' prop='code'></el-table-column>
         <el-table-column
-          label="修改时间"
-          prop="updateTime"
-          width="180px"
+          label='修改时间'
+          prop='updateTime'
+          width='180px'
         ></el-table-column>
         <el-table-column
-          label="操作"
-          width="300px"
-          align="center"
-          fixed="right"
+          label='操作'
+          width='300px'
+          align='center'
+          fixed='right'
         >
-          <template v-slot="{ row, $index }">
+          <template v-slot='{ row, $index }'>
             <el-button
-              type="primary"
-              size="small"
-              icon="User"
-              :disabled="row.type === 2"
-              @click="addPermission(row)"
+              type='primary'
+              size='small'
+              icon='User'
+              :disabled='row.type === 2'
+              @click='addPermission(row)'
             >
               添加
             </el-button>
             <el-button
-              type="primary"
-              size="small"
-              icon="Edit"
-              :disabled="row.level === 1"
-              @click="updatePermission(row)"
+              type='primary'
+              size='small'
+              icon='Edit'
+              :disabled='row.level === 1'
+              @click='updatePermission(row)'
             >
               编辑
             </el-button>
             <el-popconfirm
-              :title="`确定要删除权限 ${row.name} 吗？`"
-              width="280px"
-              icon="Delete"
-              @confirm="deletePermission(row)"
+              :title='`确定要删除权限 ${row.name} 吗？`'
+              width='280px'
+              icon='Delete'
+              @confirm='deletePermission(row)'
             >
               <template #reference>
                 <el-button
-                  type="danger"
-                  size="small"
-                  icon="Delete"
-                  :disabled="row.level === 1"
+                  type='danger'
+                  size='small'
+                  icon='Delete'
+                  :disabled='row.level === 1'
                 >
                   删除
                 </el-button>
@@ -72,42 +72,42 @@
       </el-table>
     </el-card>
     <!--dialog对话框：完成添加新的角色|更新已有的角色信息-->
-    <el-dialog v-model="permissionDialogVisible" width="550px">
+    <el-dialog v-model='permissionDialogVisible' width='550px'>
       <template #header>
         <h4>{{ permissionForm.id ? '更新菜单' : '新增菜单' }}</h4>
       </template>
       <el-form
-        ref="permissionFormRef"
-        class="permission-form"
-        :model="permissionForm"
-        :rules="permissionRules"
-        label-width="100px"
+        ref='permissionFormRef'
+        class='permission-form'
+        :model='permissionForm'
+        :rules='permissionRules'
+        label-width='100px'
       >
-        <el-form-item label="类型：" class="permission-form-item" prop="type">
-          <el-select placeholder="请选择类型" v-model="permissionForm.type">
-            <el-option label="菜单" :value="1"></el-option>
-            <el-option label="功能" :value="2"></el-option>
+        <el-form-item label='类型：' class='permission-form-item' prop='type'>
+          <el-select placeholder='请选择类型' v-model='permissionForm.type'>
+            <el-option label='菜单' :value='1'></el-option>
+            <el-option label='功能' :value='2'></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="菜单名称：" prop="name">
+        <el-form-item label='菜单名称：' prop='name'>
           <el-input
-            placeholder="请输入菜单姓名"
-            v-model="permissionForm.name"
+            placeholder='请输入菜单姓名'
+            v-model='permissionForm.name'
           ></el-input>
         </el-form-item>
-        <el-form-item label="权限值：" prop="code">
+        <el-form-item label='权限值：' prop='code'>
           <el-input
-            placeholder="请输入权限值"
-            v-model="permissionForm.code"
+            placeholder='请输入权限值'
+            v-model='permissionForm.code'
           ></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
-        <div style="flex: auto">
-          <el-button type="primary" @click="permissionDialogVisible = false">
+        <div style='flex: auto'>
+          <el-button type='primary' @click='permissionDialogVisible = false'>
             取消
           </el-button>
-          <el-button type="primary" @click="saveOrUpdatePermission">
+          <el-button type='primary' @click='saveOrUpdatePermission'>
             确定
           </el-button>
         </div>
@@ -116,7 +116,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="Permission">
+<script setup lang='ts' name='Permission'>
 import { markRaw, reactive, ref } from 'vue'
 import type {
   Permission,
@@ -191,7 +191,7 @@ const addPermission = (row: Permission) => {
 // 打开更新菜单窗口
 const updatePermission = (row: Permission) => {
   permissionDialogVisible.value = true
-  // 提取所需属性
+  // 提取所需属性 [lm's ps]: 20240305 12:39 这里使用了lodash的pick方法，将row对象中的id、name、code、type、level属性赋值给permissionForm
   Object.assign(permissionForm, pick(row, ...Object.keys(permissionForm))) // 赋值表单
   permissionFormRef.value?.clearValidate()
 }
@@ -237,7 +237,7 @@ const deletePermission = async (row: Permission) => {
 // ==================================================华丽的分割线==================================================
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .permission-table {
   margin: 10px 0px;
 }
